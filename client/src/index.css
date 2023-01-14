@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.homeCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 1rem;
+  margin: 1rem;
+}
+
+.cartDiv {
+  width: 60vw;
+  
+}
+
+@media (max-width: 900px) {
+  .cartDiv {
+    width: 100vw;
+  }
+}
+
+.cartTotalDiv {
+  margin-top: 15vh;
+  margin-left: 5vw;
+}
+
+@media (max-width: 900px) {
+  .cartTotalDiv {
+    display: none;
+  }
+}
