@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
     const booksDatabase = await Book.findAll();
     if (!booksDatabase.length) {
       const url = await axios.get(
-        "https://www.googleapis.com/books/v1/volumes?q={all}&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk"
+        "https://www.googleapis.com/books/v1/volumes?q={}&maxResults=40&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk"
       );
 
       const urlData = await url.data.items;

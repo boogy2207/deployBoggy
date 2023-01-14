@@ -26,7 +26,7 @@ function Cart() {
                         <div className="cartDiv">
                             {cart.map((book) => {
                                 return (
-                                    <div key={book.id} className="card card-side bg-base-100 shadow-xl m-10">
+                                    <div key={book.id} className="card card-side bg-base-100 shadow-xl">
                                         <button className="btn-xs mt-3 ml-2 mr-2 " onClick={() => handleClick(book, 'delete')}>
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 className="text-secondary h-5" fill="none"
