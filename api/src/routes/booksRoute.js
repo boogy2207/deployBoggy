@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
     const booksDatabase = await Book.findAll();
     if (!booksDatabase.length) {
       const url = await axios.get(
-        "https://www.googleapis.com/books/v1/volumes?q={}&maxResults=40&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk"
+        "https://www.googleapis.com/books/v1/volumes?q={all}&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk"
       );
 
       const urlData = await url.data.items;
@@ -102,5 +102,9 @@ router.get("/:id", async (req, res) => {
     console.log(error);
   }
 });
-module.exports = router;
 
+//create book
+
+ router.post("/", async (req, res) => {   const { title, authors, description, category, pagecount, imagelink, language, price } = req.params;   try {     const book = await Book.create({       title, authors, description,    category,       pagecount,       imagelink,       language,       price     });     res.status(200).json(book);   } catch (error) {     console.log(error);     res.json({ msg: "something is wrong" });   } });  module.exports = router;
+
+module.exports = router;
