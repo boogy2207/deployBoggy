@@ -18,13 +18,14 @@ function Cards() {
     dispatch(addToCart(book))
   };
 
+
   return (
     <div className='mt-10 homeCards'>
       {
         allBooks.books && allBooks.books.map((book, i) => (
           <div key={i} className="card card-compact max-w-xs rounded-md mx-4 bg-base-100 shadow-xl col-span-1">
             <Link to={`/book/${book.id}`}>
-              <figure><img src={book.imagelink} alt={book.title} /></figure>
+              <figure><img className='w-fit' src={book.imagelink} alt={book.title} /></figure>
             </Link>
             <div className="card-body">
               <h2 className="card-body">{book.title}</h2>

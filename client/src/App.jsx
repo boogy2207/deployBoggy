@@ -8,11 +8,13 @@ const NavBar = lazy(() => import('./components/NavBar'));
 const Login = lazy(() => import('./components/Login'));
 const Logout = lazy(() => import('./components/Logout'));
 const Profile = lazy(() => import('./components/Profile'));
+const MiniNavBar = lazy(() => import('./components/MiniNavBar'));
 
 function App() {
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}><NavBar /></Suspense>
+      <Suspense fallback={<div>Loading...</div>}><MiniNavBar /></Suspense>
       <Routes>
         <Route path='/' element={<Suspense fallback={<div>Loading...</div>}><Home /></Suspense>} />
         <Route path='/book/:id' element={<Suspense fallback={<div>Loading...</div>}><Details /></Suspense>} />
