@@ -15,6 +15,7 @@ router.get("/", async (req, res) => {
 
       const urlData = await url.data.items;
       const bookyDB = await urlData.forEach((e) => {
+        console.log(e.saleInfo.listPrice);
         Book.create({
           id: e.id,
           title:
@@ -45,7 +46,7 @@ router.get("/", async (req, res) => {
               : "no language",
           price:
             e.saleInfo.listPrice !== undefined
-              ? e.saleInfo.listPrice.amount
+              ? Math.round(e.saleInfo.listPrice.amount)
               : "Free Book",
         });
       });
@@ -104,7 +105,7 @@ router.get("/:id", async (req, res) => {
 
 //create book
 
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
   const {
     title,
     authors,
