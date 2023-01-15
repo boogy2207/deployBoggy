@@ -15,19 +15,27 @@ module.exports = (sequelize) => {
             primaryKey: true,
             allowNull: false,
             unique: true,
+         }, 
+         name: {
+            type: DataTypes.STRING,
+            allowNull: false,
          },
          email: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                isEmail: true,
-            },
+            }, code: { type: DataTypes.STRING, 
+               required: true },
+            status: { type: DataTypes.STRING,
+                required: true,
+                 default: "UNVERIFIED" },
          },
+         password:  { type:DataTypes.STRING,  allowNull: false,
+            required: true },
+
          //enter throw google platform
-         password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-         },
+
       },
       {
          sequelize,
