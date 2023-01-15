@@ -15,42 +15,8 @@ router.get("/", async (req, res) => {
 
       const urlData = await url.data.items;
       const bookyDB = await urlData.forEach((e) => {
-        console.log(e.saleInfo.listPrice);
-        Book.create({
-          id: e.id,
-          title:
-            e.volumeInfo.title !== undefined ? e.volumeInfo.title : "no title",
-          authors:
-            e.volumeInfo.authors?.[0] !== undefined
-              ? e.volumeInfo.authors?.[0]
-              : "no authors",
-          description:
-            e.volumeInfo.description !== undefined
-              ? e.volumeInfo.description
-              : "no description",
-          category:
-            e.volumeInfo.categories?.[0] !== undefined
-              ? e.volumeInfo.categories?.[0]
-              : "no category",
-          pagecount:
-            e.volumeInfo.pageCount !== undefined
-              ? e.volumeInfo.pageCount
-              : "no pagecount",
-          imagelink:
-            e.volumeInfo.imageLinks.thumbnail !== undefined
-              ? e.volumeInfo.imageLinks.thumbnail
-              : "no image",
-          language:
-            e.volumeInfo.language !== undefined
-              ? e.volumeInfo.language
-              : "no language",
-          price:
-            e.saleInfo.listPrice !== undefined
-              ? Math.round(e.saleInfo.listPrice.amount)
-              : "Free Book",
-        });
+        Book.create(booksModel(e));
       });
-
       res.status(200).json(bookyDB);
     } else {
       res.json(booksDatabase);
@@ -60,22 +26,9 @@ router.get("/", async (req, res) => {
     res.json({ msg: "something is wrong" });
   }
 });
+
 //ruta para buscar por titulo cada libro
 router.get("/title", async (req, res) => {
-  /* try {
-      const {title} = req.query
-      const booksName = await Book.findOne()
-      if(title){
-         const filterBooks = booksName.filter((book)=>book.title.toLowerCase().includes(title.toLowerCase()))
-      filterBooks.length?
-      res.json(filterBooks)
-      : res.json({msg:"The title does not exist"})
-      }else{
-         res.json(booksName)
-      }
-   } catch (error) {
-      res.json({msg:"Something happened"})
-   } */
   const { title } = req.query;
 
   try {
@@ -92,6 +45,8 @@ router.get("/title", async (req, res) => {
     console.log(error);
   }
 });
+
+
 //ruta para buscar por id cada libro
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
@@ -104,8 +59,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //create book
-
-router.post("/create", async (req, res) => {
+router.post("/", async (req, res) => {
   const {
     title,
     authors,
@@ -133,6 +87,42 @@ router.post("/create", async (req, res) => {
     res.json({ msg: "something is wrong" });
   }
 });
-module.exports = router;
+
+
+const booksModel = (e) => {
+  const book = {
+    id: e.id,
+    title: e.volumeInfo.title !== undefined ? e.volumeInfo.title : "no title",
+    authors:
+      e.volumeInfo.authors?.[0] !== undefined
+        ? e.volumeInfo.authors?.[0]
+        : "no authors",
+    description:
+      e.volumeInfo.description !== undefined
+        ? e.volumeInfo.description
+        : "no description",
+    category:
+      e.volumeInfo.categories?.[0] !== undefined
+        ? e.volumeInfo.categories?.[0]
+        : "no category",
+    pagecount:
+      e.volumeInfo.pageCount !== undefined
+        ? e.volumeInfo.pageCount
+        : "no pagecount",
+    imagelink:
+      e.volumeInfo.imageLinks.thumbnail !== undefined
+        ? e.volumeInfo.imageLinks.thumbnail
+        : "no image",
+    language:
+      e.volumeInfo.language !== undefined
+        ? e.volumeInfo.language
+        : "no language",
+    price:
+      e.saleInfo.listPrice !== undefined
+        ? Math.round(e.saleInfo.listPrice.amount)
+        : "Free Book",
+  };
+  return book;
+};
 
 module.exports = router;
