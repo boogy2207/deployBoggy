@@ -4,18 +4,18 @@ const { default: axios } = require("axios");
 const { Book } = require("../db");
 const { Op } = require("sequelize");
 
-
 //ruta para obtener los libros
 router.get("/", async (req, res) => {
   try {
     const booksDatabase = await Book.findAll();
     if (!booksDatabase.length) {
       const url = await axios.get(
-        "https://www.googleapis.com/books/v1/volumes?q={all}&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk"
+        "https://www.googleapis.com/books/v1/volumes?q={}&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk"
       );
 
       const urlData = await url.data.items;
       const bookyDB = await urlData.forEach((e) => {
+        console.log(e.saleInfo.listPrice);
         Book.create({
           id: e.id,
           title:
@@ -46,7 +46,7 @@ router.get("/", async (req, res) => {
               : "no language",
           price:
             e.saleInfo.listPrice !== undefined
-              ? e.saleInfo.listPrice.amount
+              ? Math.round(e.saleInfo.listPrice.amount)
               : "Free Book",
         });
       });
@@ -105,6 +105,34 @@ router.get("/:id", async (req, res) => {
 
 //create book
 
- router.post("/", async (req, res) => {   const { title, authors, description, category, pagecount, imagelink, language, price } = req.params;   try {     const book = await Book.create({       title, authors, description,    category,       pagecount,       imagelink,       language,       price     });     res.status(200).json(book);   } catch (error) {     console.log(error);     res.json({ msg: "something is wrong" });   } });  module.exports = router;
+router.post("/create", async (req, res) => {
+  const {
+    title,
+    authors,
+    description,
+    category,
+    pagecount,
+    imagelink,
+    language,
+    price,
+  } = req.params;
+  try {
+    const book = await Book.create({
+      title,
+      authors,
+      description,
+      category,
+      pagecount,
+      imagelink,
+      language,
+      price,
+    });
+    res.status(200).json(book);
+  } catch (error) {
+    console.log(error);
+    res.json({ msg: "something is wrong" });
+  }
+});
+module.exports = router;
 
 module.exports = router;
