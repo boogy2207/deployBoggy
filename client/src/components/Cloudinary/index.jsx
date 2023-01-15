@@ -32,7 +32,7 @@ const Cloudinary = () => {
   return (
     <input
       type="file"
-      className='btn btn-outline border-primary'
+      className='file-input file-input-bordered border-primary w-full max-w-xs'
       name='file'
       placeholder="Upload your image here"
       onChange={uploadImage}
