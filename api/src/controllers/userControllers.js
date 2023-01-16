@@ -3,6 +3,8 @@ const { v4: uuidv4 } = require("uuid");
 const { Op } = require("sequelize");
 const { getToken, getTokenData } = require("../config/jwt.config");
 const { getTemplate, sendEmail } = require("../config/mail.config");
+const bcryptjs = require("bcryptjs")
+const jwt = require("jsonwebtoken")
 
 const signUp = async (req, res) => {
   try {
@@ -23,7 +25,7 @@ const signUp = async (req, res) => {
 
     const code = uuidv4();
 
-    user = new User({ name, email, code, password });
+    user = new User({ name, email, code, password:await bcryptjs.hash(password, 10) });
 
     const token = getToken({ email, code });
 
@@ -82,7 +84,34 @@ const confirm = async (req, res) => {
   }
 };
 
+const signIn = async (req, res)=>{
+  try {
+    const {email, password} = req.body
+    const users = await User.findOne({ where:{email: email}})
+    if(!users) return res.status(402).json("Correo no encontrado")
+    if(users.isValid === false) return res.status(404).json("La cuenta no esta verificada")
+    const confirmPassword = await bcryptjs.compare(password, users.password)
+    if(!confirmPassword){
+      return res.status(401).json("La contraseña es incorrecta")
+    }
+    const token = await jwt.sign({
+      id: users.id,
+      email: users.email,
+      name: users.name,
+      isAdmin: users.isAdmin,
+      isUser: users.isUser
+    }, process.env.JWT_SEC, {
+      expiresIn: 84500
+    })
+    const dataUser = {email: users.email, name: users.name, id: users.id}
+    res.status(200).json({user: dataUser, token})
+  } catch (error) {
+    res.status(400).json({error: error.message})
+  }
+}
+
 module.exports = {
   signUp,
   confirm,
+  signIn
 };
