@@ -1,13 +1,28 @@
 import { Box, Typography, TextField, Button } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
-import { useLogin } from './useLogin';
+import { useNavigate } from 'react-router-dom';
+import useInputChange from '../../hooks/useInputChange';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../store/slices/auth/requestsUser';
 // import LogoutIcon from '@mui/icons-material/Logout';
 
+const initialStateValues = {
+  email: '',
+  password: '',
+}
 
 function Login() {
 
-  const [values, onChange, onSubmit, navigate] = useLogin();
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { values, handleChange } = useInputChange(initialStateValues);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(values));
+  }
 
   return (
     <div style={{ display: 'grid', placeItems: 'center', height: '100vh' }}>
@@ -69,7 +84,7 @@ function Login() {
               placeholder='Email'
               name='email'
               value={values.email}
-              onChange={onChange} />
+              onChange={handleChange} />
             <TextField
 
               label='Contraseña'
@@ -80,7 +95,7 @@ function Login() {
               placeholder='Contraseña'
               name='password'
               value={values.password}
-              onChange={onChange} />
+              onChange={handleChange} />
 
             <Button sx={{ marginTop: 3, borderRadius: 4, minWidth: '10rem' }} variant='contained' color='warning' onClick={onSubmit} endIcon={<LoginIcon />} >Login</Button>
             <Button sx={{ marginTop: 3, borderRadius: 4, minWidth: '10rem' }} onClick={() => { navigate('/register') }} endIcon={<HowToRegIcon />} >Registrate</Button>
