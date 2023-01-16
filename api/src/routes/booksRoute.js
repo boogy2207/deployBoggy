@@ -8,10 +8,11 @@ const { Op } = require("sequelize");
 router.get("/", async (req, res) => {
   try {
     const booksDatabase = await Book.findAll();
+    
     if (!booksDatabase.length) {
       const url = await axios.get(
         "https://www.googleapis.com/books/v1/volumes?q={}&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk"
-      );
+        );
 
       const urlData = await url.data.items;
       const bookyDB = await urlData.forEach((e) => {
@@ -29,9 +30,9 @@ router.get("/", async (req, res) => {
 
 //ruta para buscar por titulo cada libro
 router.get("/title", async (req, res) => {
-  const { title } = req.query;
-
   try {
+    const { title } = req.query;
+
     const booky = await Book.findAll({
       where: {
         title: {
@@ -39,13 +40,18 @@ router.get("/title", async (req, res) => {
         },
       },
     });
-    res.status(200).send(booky);
-  } catch (error) {
-    res.status(404).send({ msg: "The title does not exist" });
-    console.log(error);
-  }
-});
-
+    
+    const searchBook = await axios.get(
+      `https://www.googleapis.com/books/v1/volumes?q=${title}&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk`
+      );
+      
+      res.status(200).send(searchBook.data.items.concat(booky));
+    } catch (error) {
+      res.status(404).send({ msg: "The title does not exist" });
+      console.log(error);
+    }
+  });
+  
 
 //ruta para buscar por id cada libro
 router.get("/:id", async (req, res) => {
