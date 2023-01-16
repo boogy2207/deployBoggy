@@ -14,13 +14,13 @@ function SearchBar() {
 
 
   const { values, handleChange } = useInputChange(initialState);
-  const debounce = useDebounce(values.search, 2000)
+  const debounce = useDebounce(values.search, 200)
 
   useEffect(() => {
     if (debounce.length > 0) {
       dispatch(getByTitle(debounce));
     } else {
-      dispatch(getByTitle(""));
+      dispatch(getByTitle(values.search));
     }
   }, [debounce])
 

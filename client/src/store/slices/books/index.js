@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import searchTransform from "../../../helpers/searchTransform";
 
 export const bookSlice = createSlice({
   name: "books",
@@ -12,11 +13,17 @@ export const bookSlice = createSlice({
       state.allBookys = action.payload;
     },
     getBooksByTitle: (state, action) => {
-      state.books = action.payload;
-      state.allBookys = action.payload;
-    },
+
+
+      const searchBook = searchTransform(action.payload)
+      
+      state.books = searchBook;
+      state.allBookys = searchBook;
+   },
     price: (state, action) => {
       let ordenSort;
+      let Free
+      
 
       if (action.payload === "A-Z") {
         ordenSort = state.books.sort((a, b) => {
@@ -34,19 +41,31 @@ export const bookSlice = createSlice({
         });
       }
       if (action.payload === "ASC") {
-        ordenSort = state.books.sort((a, b) => {
-          if (a.price < b.price) return 1;
-          if (a.price > b.price) return -1;
-          return 0;
-        });
-      }
+
+        Free = state.books.filter(e => e.price === 'Free Book' )
+        const noFree = state.books.filter(e => e.price !== 'Free Book' )
+
+        ordenSort = noFree.sort((a, b) => {
+            if (parseInt(a.price) < parseInt(b.price)) return 1;
+            if (parseInt(a.price) > parseInt(b.price)) return -1;
+            return 0;
+          });
+          
+          ordenSort = ordenSort.concat(Free)
+        }
+
 
       if (action.payload === "DESC") {
-        ordenSort = state.books.sort((a, b) => {
-          if (a.price > b.price) return 1;
-          if (a.price < b.price) return -1;
+        Free = state.books.filter(e => e.price === 'Free Book' )
+        const noFree = state.books.filter(e => e.price !== 'Free Book' )
+
+        ordenSort = noFree.sort((a, b) => {
+          if (parseInt(a.price) > parseInt(b.price)) return 1;
+          if (parseInt(a.price) < parseInt(b.price)) return -1;
           return 0;
         });
+
+        ordenSort = Free.concat(ordenSort)
       }
 
       state.books = ordenSort;
