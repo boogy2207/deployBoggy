@@ -8,9 +8,10 @@ const Details = lazy(() => import('./components/Detail'));
 const Cart = lazy(() => import('./components/Cart'));
 const NavBar = lazy(() => import('./components/NavBar'));
 const Login = lazy(() => import('./components/Login'));
-const Logout = lazy(() => import('./components/Logout'));
+const Register = lazy(() => import('./components/Register'));
 const Profile = lazy(() => import('./components/Profile'));
 const MiniNavBar = lazy(() => import('./components/MiniNavBar'));
+const Denied = lazy(() => import('./components/Denied'));
 
 function App() {
 
@@ -32,12 +33,13 @@ function App() {
         <Route element={<ProtectedRoute isAllowed={!!user} />} >
           <Route path='/profile' element={<Suspense fallback={<div>Loading...</div>}><Profile /></Suspense>} />
         </Route>
-        <Route element={<ProtectedRoute isAllowed={!!user && user.isAdmin} redirectTo='/home' />} >
+        <Route element={<ProtectedRoute isAllowed={!!user && user.isAdmin} redirectTo='/denied' />} >
           <Route path='/upload-book' element={<Suspense fallback={<div>Loading...</div>}><Form /></Suspense>} />
         </Route>
         <Route path='/cart' element={<Suspense fallback={<div>Loading...</div>}><Cart /></Suspense>} />
         <Route path='/login' element={<Suspense fallback={<div>Loading...</div>}><Login /></Suspense>} />
-        <Route path='/register' element={<Suspense fallback={<div>Loading...</div>}><Logout /></Suspense>} />
+        <Route path='/register' element={<Suspense fallback={<div>Loading...</div>}><Register /></Suspense>} />
+        <Route path='/denied' element={<Suspense fallback={<div>Loading...</div>}><Denied /></Suspense>} />
       </Routes>
     </>
   );

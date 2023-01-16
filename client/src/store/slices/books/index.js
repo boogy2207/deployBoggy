@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import searchTransform from "../../../helpers/searchTransform";
-
+//no entedí, por las prisas lo comenté y corregí en el back
 export const bookSlice = createSlice({
   name: "books",
   initialState: {
@@ -13,16 +13,15 @@ export const bookSlice = createSlice({
       state.allBookys = action.payload;
     },
     getBooksByTitle: (state, action) => {
+      const searchBook = action.payload;
 
-      const searchBook = searchTransform(action.payload)
-      
       state.books = searchBook;
       state.allBookys = searchBook;
-   },
+    },
     price: (state, action) => {
       let ordenSort;
-      let Free
-      
+      let Free;
+
       if (action.payload === "A-Z") {
         ordenSort = state.books.sort((a, b) => {
           if (a.title > b.title) return 1;
@@ -39,21 +38,21 @@ export const bookSlice = createSlice({
         });
       }
       if (action.payload === "ASC") {
-        Free = state.books.filter(e => e.price === 'Free Book' )
-        const noFree = state.books.filter(e => e.price !== 'Free Book' )
+        Free = state.books.filter((e) => e.price === "Free Book");
+        const noFree = state.books.filter((e) => e.price !== "Free Book");
 
         ordenSort = noFree.sort((a, b) => {
-            if (parseInt(a.price) < parseInt(b.price)) return 1;
-            if (parseInt(a.price) > parseInt(b.price)) return -1;
-            return 0;
-          });
-          
-          ordenSort = ordenSort.concat(Free)
-        }
+          if (parseInt(a.price) < parseInt(b.price)) return 1;
+          if (parseInt(a.price) > parseInt(b.price)) return -1;
+          return 0;
+        });
+
+        ordenSort = ordenSort.concat(Free);
+      }
 
       if (action.payload === "DESC") {
-        Free = state.books.filter(e => e.price === 'Free Book' )
-        const noFree = state.books.filter(e => e.price !== 'Free Book' )
+        Free = state.books.filter((e) => e.price === "Free Book");
+        const noFree = state.books.filter((e) => e.price !== "Free Book");
 
         ordenSort = noFree.sort((a, b) => {
           if (parseInt(a.price) > parseInt(b.price)) return 1;
@@ -61,13 +60,12 @@ export const bookSlice = createSlice({
           return 0;
         });
 
-        ordenSort = Free.concat(ordenSort)
+        ordenSort = Free.concat(ordenSort);
       }
 
       state.books = ordenSort;
     },
     filter: (state, action) => {
-
       if (action.payload === "ALL") {
         state.books = state.allBookys.filter((e) => e);
       } else {
@@ -78,19 +76,24 @@ export const bookSlice = createSlice({
       }
     },
     rangePrice: (state, action) => {
+      const booksFree = state.allBookys.filter((e) => e.price === "Free Book");
 
-      const booksFree = state.allBookys.filter(e =>  e.price === 'Free Book')
-
-      if(action.payload.minPrice === 0){
-        
-        const bookPrice = state.allBookys.filter(e =>  parseInt(e.price) >= action.payload.minPrice && parseInt(e.price) <= action.payload.maxPrice)
-        state.books = bookPrice.concat(booksFree)
-      }else{
-        const bookPrice = state.allBookys.filter(e =>  parseInt(e.price) >= action.payload.minPrice && parseInt(e.price) <= action.payload.maxPrice)
-        state.books = bookPrice
+      if (action.payload.minPrice === 0) {
+        const bookPrice = state.allBookys.filter(
+          (e) =>
+            parseInt(e.price) >= action.payload.minPrice &&
+            parseInt(e.price) <= action.payload.maxPrice
+        );
+        state.books = bookPrice.concat(booksFree);
+      } else {
+        const bookPrice = state.allBookys.filter(
+          (e) =>
+            parseInt(e.price) >= action.payload.minPrice &&
+            parseInt(e.price) <= action.payload.maxPrice
+        );
+        state.books = bookPrice;
       }
-
-    }
+    },
   },
 });
 

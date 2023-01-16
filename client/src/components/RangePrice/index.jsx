@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import styles from './range.module.css'
 import { useDispatch } from 'react-redux'
 import { rangePrice } from "../../store/slices/books";
+import styles from './range.module.css'
 
 const priceGap = 1000;
 const valueMin = 0;
@@ -36,20 +36,20 @@ function RangePrice() {
 
 
     return (
-        <div className={styles.divContSide}>
+        <div className='flex felx-col justify-center items-center'>
             <div className={styles.wrapper}>
                 <h2 className='text-lg'>Price Range</h2>
-                <div className={styles.priceInput}>
+                <div className={`flex ${styles.priceInput}`}>
                     <div className={styles.field}>
                         <button className="btn gap-2">
                             Min
-                            <div className="badge">{minPrice}</div>
+                            <div className="">{minPrice}</div>
                         </button>
                     </div>
                     <div className={styles.field}>
                         <button className="btn gap-2">
                             Max
-                            <div className="badge">{maxPrice}</div>
+                            <div className="">{maxPrice}</div>
                         </button>
                     </div>
 

@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import useInputChange from "../../hooks/useInputChange";
 import Select from "../Select";
@@ -31,16 +30,12 @@ const initialStateErrors = {
 const Form = () => {
 
     const { values, handleChange, errors } = useInputChange(initialStateValues, initialStateErrors);
-    const { isLoading } = useAuth0();
     const dispatch = useDispatch();
 
     const onSubmit = (e) => {
         e.preventDefault(e);
         !Object.entries(errors).length ? dispatch(postBook(values)) : alert(JSON.stringify(`Please correct: ${Object.values(errors)}`));
     };
-
-    if (isLoading) return <div>Loading...</div>;
-
 
     return (
         <>
@@ -108,7 +103,7 @@ const Form = () => {
                     {/**------------------------------------------------------------------------------------*/}
                     <label className="input-group m-5">
                         <span>Image</span>
-                        <Cloudinary />
+                        <Cloudinary handleChange={handleChange} />
                     </label>
                     {/**------------------------------------------------------------------------------------*/}
                     <Label
@@ -140,3 +135,4 @@ const Form = () => {
 };
 
 export default Form;
+

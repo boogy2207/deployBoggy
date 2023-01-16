@@ -6,13 +6,10 @@ const validate = (form) => {
   if (!form.authors) {
     error.authors = "Type a authors";
   }
-
   if (!form.description) {
-    // alert("description is a must");
     error.description = "Type a description";
   }
   if (!form.category) {
-    // alert("category is a must");
     error.category = "Type a category";
   }
   if (!form.pagecount) {

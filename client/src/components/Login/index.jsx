@@ -3,7 +3,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { useNavigate } from 'react-router-dom';
 import useInputChange from '../../hooks/useInputChange';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { login } from '../../store/slices/auth/requestsUser';
 // import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -79,7 +79,7 @@ function Login() {
               label='Email '
               required
               margin='normal'
-              type={'email'}
+              type='email'
               variant='outlined'
               placeholder='Email'
               name='email'
@@ -87,18 +87,18 @@ function Login() {
               onChange={handleChange} />
             <TextField
 
-              label='Contraseña'
+              label='Password'
               required
               margin='normal'
-              type={'password'}
+              type='password'
               variant='outlined'
-              placeholder='Contraseña'
+              placeholder='Password'
               name='password'
               value={values.password}
               onChange={handleChange} />
 
             <Button sx={{ marginTop: 3, borderRadius: 4, minWidth: '10rem' }} variant='contained' color='warning' onClick={onSubmit} endIcon={<LoginIcon />} >Login</Button>
-            <Button sx={{ marginTop: 3, borderRadius: 4, minWidth: '10rem' }} onClick={() => { navigate('/register') }} endIcon={<HowToRegIcon />} >Registrate</Button>
+            <Button sx={{ marginTop: 3, borderRadius: 4, minWidth: '10rem' }} onClick={() => { navigate('/register') }} endIcon={<HowToRegIcon />} >Sin Up</Button>
           </Box>
         </form>
       </Box>

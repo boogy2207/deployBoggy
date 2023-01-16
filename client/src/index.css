@@ -22,9 +22,9 @@
   margin: 1rem;
 }
 
+
 .cartDiv {
   width: 60vw;
-  
 }
 
 @media (max-width: 900px) {
@@ -38,18 +38,26 @@
   margin-left: 5vw;
 }
 
+.cartTotalDivNone{
+  display: none;
+}
+
 @media (max-width: 900px) {
   .cartTotalDiv {
     display: none;
+  }
+  .cartTotalDivNone{
+    display: flex;
+    width: 70vw;
   }
 }
 
 @keyframes animate {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
 
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
