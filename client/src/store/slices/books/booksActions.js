@@ -17,7 +17,6 @@ export const getByTitle = (title) => (dispatch) => {
   .then((res) => dispatch(getBooksByTitle(res.data)))
   .catch((e) => console.log(e));
 }
-
 };
 
 export const postBook = (book) => () => {
