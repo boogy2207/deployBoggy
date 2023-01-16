@@ -1,11 +1,7 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import { logoutUser, postUser } from "../../store/slices/auth";
-import BtnTheme from "../BtnTheme";
-import Login from "../Login";
-import Logout from "../Logout";
+import { Link } from "react-router-dom";
+import { logoutUser } from "../../store/slices/auth";
+// import BtnTheme from "../BtnTheme";
 import SearchBar from "../SearchBar/SearchBar.jsx"
 
 
@@ -22,13 +18,13 @@ function NavBar() {
 
 
   return (
-    <div className="mt navbar bg-[#004D43]">
+    <div className="navbar bg-[#004D43]">
       <div className="flex-1">
         <Link to='/' className="btn btn-ghost normal-case text-xl text-[#dfa100]">El Paraíso del Libro</Link>
       </div>
       <div className="flex justify-center gap-3" >
         <SearchBar />
-        <BtnTheme />
+        {/* <BtnTheme /> */}
       </div>
       <div className="flex-none">
         <div className="dropdown dropdown-hover dropdown-end">
@@ -57,12 +53,17 @@ function NavBar() {
                   </div>
                 </label>
                 <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                  <li>
-                    <Link className="justify-between" to={'/upload-book'}>
-                      Cargar Libro
-                      <span className="badge">New</span>
-                    </Link>
-                  </li>
+                  {
+                    user.isAdmin && (
+                      <li>
+                        <Link className="justify-between" to={'/upload-book'}>
+                          Cargar Libro
+                          <span className="badge">New</span>
+                        </Link>
+                      </li>
+                    )
+                  }
+
                   <li><Link to='/profile'>Profile</Link></li>
                   <li onClick={logout}><a>Logout</a></li>
                 </ul>

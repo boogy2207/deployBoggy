@@ -1,53 +1,19 @@
 /* Import Google Font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-.divContSide{
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-}
-::selection{
-  color: #fff;
-  background: #17A2B8;
-}
+
 .wrapper{
-  width: 400px;
-  border-radius: 10px;
-  padding: 20px 25px 40px;
+  width: 250px;
+  padding: 30px;
 }
-
 .priceInput{
-  width: 100%;
-  display: flex;
-  margin: 30px 0 35px;
+  margin: 20px 0 35px;
 }
 .priceInput .field{
-  display: flex;
   width: 100%;
-  height: 45px;
-  align-items: center;
+  height: 40px;
 }
-.fieldInput{
-  width: 100%;
-  height: 100%;
-  outline: none;
-  font-size: 19px;
-  margin-left: 12px;
-  border-radius: 5px;
-  text-align: center;
-  border: 1px solid #999;
-  -moz-appearance: textfield;
-}
-.typeNumber::-webkit-outer-spin-button,
-.typeNumber::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
+
 .priceInput .separator{
   width: 130px;
   display: flex;
@@ -79,8 +45,6 @@
   top: -5px;
   background: none;
   pointer-events: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
 }
 .rangeTe::-webkit-slider-thumb{
   height: 17px;

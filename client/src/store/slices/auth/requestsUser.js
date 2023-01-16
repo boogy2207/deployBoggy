@@ -1,5 +1,6 @@
 import axios from "axios";
-import { postUser } from ".";
+import Swal from "sweetalert2";
+import { postUser, registerUser } from ".";
 
 const urlBack = "https://deployboggy-production.up.railway.app";
 const localhost = "http://localhost:3002";
@@ -8,12 +9,31 @@ export const login = (user) => (dispatch) => {
   axios
     .post(`${localhost}/user/login`, user)
     .then((res) => dispatch(postUser(res.data)))
-    .catch((e) => console.log(e));
+    .catch((e) =>
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: e.response.data,
+      })
+    );
 };
 
 export const getAllUsers = () => () => {
   axios
     .get(`${localhost}/user`)
     .then((res) => console.log(res.data))
+    .catch((e) => console.log(e));
+};
+
+export const register = (user) => (dispatch) => {
+  const { name, email, password } = user;
+  const data = {
+    name,
+    email,
+    password,
+  };
+  axios
+    .post(`${localhost}/user`, data)
+    .then((res) => dispatch(registerUser(res.data)))
     .catch((e) => console.log(e));
 };
