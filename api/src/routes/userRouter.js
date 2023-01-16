@@ -3,6 +3,7 @@ const router = Express.Router();
 const { Op } = require("sequelize");
 const { User } = require("../db");
 const userControllers = require("../controllers/userControllers");
+const { verifyToken, isAdmin, isUser } = require("../middlewares/authJwt");
 
 //post user
 
@@ -11,6 +12,19 @@ router.post(
     [],
     userControllers.signUp
 );
+
+///
+router.post("/login", userControllers.signIn)
+
+///
+router.use((req, res, next) => {
+    res.header(
+      "Access-Control-Allow-Headers",
+      "x-access-token, Origin, Content-Type, Accept"
+    );
+    next();
+  });
+
 ////////
 router.get(
     '/confirm/:token',
@@ -34,7 +48,7 @@ router.get("/", async (req,res) =>{
 
 //get user by id 
 
-router.get("/:id", async (req,res)=>{
+router.get("/:id",isAdmin, async (req,res)=>{
     const {id} = req.params;
     try{
         const user = await User.findByPk(id)
@@ -60,7 +74,7 @@ router.put("/:id", async (req,res)=>{
 })
 
 //delete user by id 
-router.delete('/:id', async (req,res)=>{
+router.delete('/:id',[verifyToken, isAdmin], async (req,res)=>{
     const {id} = req.params;
     try{
         const user = await User.destroy({where: {id}})
@@ -69,6 +83,5 @@ router.delete('/:id', async (req,res)=>{
         console.log(error);
     }
 })
-
 
 module.exports = router;
