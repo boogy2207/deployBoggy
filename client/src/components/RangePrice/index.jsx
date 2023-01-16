@@ -7,8 +7,8 @@ const valueMax = 10000;
 
 function RangePrice() {
 
-    const [minPrice, setMinPrice] = useState(2500);
-    const [maxPrice, setMaxPrice] = useState(7500);
+    const [minPrice, setMinPrice] = useState(valueMin);
+    const [maxPrice, setMaxPrice] = useState(valueMax);
     const [range, setRange] = useState({ left: '25%', right: '75%' });
 
     const handleInput = (e, inp) => {

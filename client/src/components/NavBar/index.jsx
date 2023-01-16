@@ -65,7 +65,7 @@ function NavBar() {
                     <li><Logout /></li>
                   </ul>
                 </div>
-              ) : <Login />
+              ) : <>Login</>
             }
           </div>
         </div>
