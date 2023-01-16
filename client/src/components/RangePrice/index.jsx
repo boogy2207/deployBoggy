@@ -10,13 +10,14 @@ const valueMax = 100000;
 function RangePrice() {
 
     const dispach = useDispatch()
-
-    const [minPrice, setMinPrice] = useState(15000);
-    const [maxPrice, setMaxPrice] = useState(85000);
+    const [minPrice, setMinPrice] = useState(valueMin);
+    const [maxPrice, setMaxPrice] = useState(valueMax);
     const [range, setRange] = useState({ left: '25%', right: '75%' });
 
+    const dispach = useDispatch();
+
     useEffect(()=>{
-        dispach(rangePrice({minPrice,maxPrice}))
+        dispach(rangePrice({minPrice,maxPrice}));
     },[minPrice,maxPrice])
 
     const handleInput = (e, inp) => {

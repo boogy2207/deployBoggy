@@ -9,7 +9,6 @@ const jwt = require("jsonwebtoken")
 const signUp = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-
     let user = await User.findOne({
       where: {
         [Op.or]: [{ name: req.body.name, email: req.body.email }],
@@ -39,23 +38,23 @@ const signUp = async (req, res) => {
       msg: "Registrado correctamente",
     });
   } catch (error) {
-    console.log(error);
     return res.json({
       success: false,
       msg: "Error al registrar usuario",
+      error: error,
     });
   }
 };
 
 const confirm = async (req, res) => {
   try {
-    const { token } = req.body;
+    console.log('a');
+    const { token } = req.params;
     const data = await getTokenData(token);
 
     if (data === null) {
       return res.json({ success: false, msg: "Error al obtener data " });
     }
-    console.log(data);
     const { email, code } = data.data;
 
     const user = await User.findOne({
@@ -103,7 +102,7 @@ const signIn = async (req, res)=>{
     }, process.env.JWT_SEC, {
       expiresIn: 84500
     })
-    const dataUser = {email: users.email, name: users.name, id: users.id}
+    const dataUser = {email: users.email, name: users.name, id: users.id, isAdmin: users.isAdmin, isUser: users.isUser}
     res.status(200).json({user: dataUser, token})
   } catch (error) {
     res.status(400).json({error: error.message})

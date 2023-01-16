@@ -14,6 +14,7 @@ export const bookSlice = createSlice({
     },
     getBooksByTitle: (state, action) => {
 
+
       const searchBook = searchTransform(action.payload)
       
       state.books = searchBook;
@@ -23,22 +24,24 @@ export const bookSlice = createSlice({
       let ordenSort;
       let Free
       
+
       if (action.payload === "A-Z") {
         ordenSort = state.books.sort((a, b) => {
-            if (a.title > b.title) return 1;
-            if (a.title < b.title) return -1;
-            return 0;
-          });
-        }
-        
+          if (a.title > b.title) return 1;
+          if (a.title < b.title) return -1;
+          return 0;
+        });
+      }
+
       if (action.payload === "Z-A") {
         ordenSort = state.books.sort((a, b) => {
-            if (a.title < b.title) return 1;
-            if (a.title > b.title) return -1;
-            return 0;
-          });
-        }
+          if (a.title < b.title) return 1;
+          if (a.title > b.title) return -1;
+          return 0;
+        });
+      }
       if (action.payload === "ASC") {
+
         Free = state.books.filter(e => e.price === 'Free Book' )
         const noFree = state.books.filter(e => e.price !== 'Free Book' )
 
@@ -50,6 +53,7 @@ export const bookSlice = createSlice({
           
           ordenSort = ordenSort.concat(Free)
         }
+
 
       if (action.payload === "DESC") {
         Free = state.books.filter(e => e.price === 'Free Book' )
@@ -94,6 +98,7 @@ export const bookSlice = createSlice({
   },
 });
 
-export const { getAllBooks, price, filter,rangePrice, getBooksByTitle } = bookSlice.actions;
+export const { getAllBooks, price, filter, rangePrice, getBooksByTitle } =
+  bookSlice.actions;
 
 export default bookSlice.reducer;
