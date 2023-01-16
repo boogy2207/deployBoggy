@@ -7,7 +7,7 @@ const localhost = "http://localhost:3002";
 
 export const login = (user) => (dispatch) => {
   axios
-    .post(`${localhost}/user/login`, user)
+    .post(`${urlBack}/user/login`, user)
     .then((res) => dispatch(postUser(res.data)))
     .catch((e) =>
       Swal.fire({
@@ -20,7 +20,7 @@ export const login = (user) => (dispatch) => {
 
 export const getAllUsers = () => () => {
   axios
-    .get(`${localhost}/user`)
+    .get(`${urlBack}/user`)
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };
@@ -33,7 +33,7 @@ export const register = (user) => (dispatch) => {
     password,
   };
   axios
-    .post(`${localhost}/user`, data)
+    .post(`${urlBack}/user`, data)
     .then((res) => dispatch(registerUser(res.data)))
     .catch((e) => console.log(e));
 };
