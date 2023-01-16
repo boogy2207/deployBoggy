@@ -13,11 +13,17 @@ router.get("/", async (req, res) => {
       const url = await axios.get(
         "https://www.googleapis.com/books/v1/volumes?q={}&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk"
 <<<<<<< HEAD
+<<<<<<< HEAD
       );
 =======
         );
 
 >>>>>>> 1fd86a8de323056ffa998a85d46eaa5c5cb1a1f1
+=======
+
+      );
+
+>>>>>>> 99f01fff532377507eb089a58df0a3511c3ab6d9
       const urlData = await url.data.items;
       const bookyDB = await urlData.forEach((e) => {
         Book.create(booksModel(e));
