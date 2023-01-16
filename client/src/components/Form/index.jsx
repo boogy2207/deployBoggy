@@ -114,16 +114,6 @@ const Form = () => {
                         name='pagecount'
                     />
                     {/**------------------------------------------------------------------------------------*/}
-                    {/* <Label
-                        classNameSpan="input-group m-5"
-                        classNameInput="input input-bordered input-primary w-full max-w-xs"
-                         titleSpan='Image Link'
-                        type="url"
-                        placeholder="Type Here!"
-                        value={values.imagelink}
-                        handleChange={handleChange}
-                        name='imagelink' 
-                    />  */}
                     <label className="input-group m-5">
                         <span>Image</span>
                         <Cloudinary />
@@ -151,21 +141,21 @@ const Form = () => {
                         name='language'
                     />
                     {/**------------------------------------------------------------------------------------*/}
-                    <Select
-                        className='m-5 select select-primary w-full max-w-xs'
-                        value={values.language}
-                        handleChange={handleChange}
-                        optionsMap={['ES', 'US', 'FR', 'CH']}
-                        disabledPlaceHorder={'Select a Language'}
-                    />
+                    <label className="input-group m-5">
+                        <span>Language</span>
+                        <Select
+                            className=' select select-primary w-full max-w-xs'
+                            value={values.language}
+                            handleChange={handleChange}
+                            optionsMap={['ES', 'US', 'FR', 'CH']}
+                            disabledPlaceHorder={'Select a Language'}
+                        />
+                    </label>
                 </div>
-                <button className="btn">Add Book</button>
+                <button className="btn mb-10">Add Book</button>
             </form>
         </>
     );
 };
 
 export default Form;
-// export default withAuthenticationRequired(Form, {
-//     onRedirecting: () => <div>Redirecting you to the login page...</div>,
-// });

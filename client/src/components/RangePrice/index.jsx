@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from './range.module.css'
+import { useDispatch } from 'react-redux'
+import { rangePrice } from "../../store/slices/books";
 
 const priceGap = 1000;
 const valueMin = 0;
-const valueMax = 10000;
+const valueMax = 50000;
 
 function RangePrice() {
 
-    const [minPrice, setMinPrice] = useState(2500);
-    const [maxPrice, setMaxPrice] = useState(7500);
+    const dispach = useDispatch()
+
+    const [minPrice, setMinPrice] = useState(5000);
+    const [maxPrice, setMaxPrice] = useState(45000);
     const [range, setRange] = useState({ left: '25%', right: '75%' });
+
+    useEffect(()=>{
+        dispach(rangePrice({minPrice,maxPrice}))
+    },[minPrice,maxPrice])
 
     const handleInput = (e, inp) => {
         let value = (e.target.value);
@@ -25,6 +33,7 @@ function RangePrice() {
             right: `${100 - (maxPrice / valueMax) * 100}%`,
         });
     };
+
 
     return (
         <div className={styles.divContSide}>
