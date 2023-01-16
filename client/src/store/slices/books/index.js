@@ -13,10 +13,6 @@ export const bookSlice = createSlice({
       state.allBookys = action.payload;
     },
     getBooksByTitle: (state, action) => {
-<<<<<<< HEAD
-=======
-
->>>>>>> 99f01fff532377507eb089a58df0a3511c3ab6d9
 
       const searchBook = searchTransform(action.payload)
       
@@ -27,10 +23,6 @@ export const bookSlice = createSlice({
       let ordenSort;
       let Free
       
-<<<<<<< HEAD
-=======
-
->>>>>>> 99f01fff532377507eb089a58df0a3511c3ab6d9
       if (action.payload === "A-Z") {
         ordenSort = state.books.sort((a, b) => {
           if (a.title > b.title) return 1;
@@ -47,10 +39,6 @@ export const bookSlice = createSlice({
         });
       }
       if (action.payload === "ASC") {
-<<<<<<< HEAD
-=======
-
->>>>>>> 99f01fff532377507eb089a58df0a3511c3ab6d9
         Free = state.books.filter(e => e.price === 'Free Book' )
         const noFree = state.books.filter(e => e.price !== 'Free Book' )
 
@@ -62,10 +50,6 @@ export const bookSlice = createSlice({
           
           ordenSort = ordenSort.concat(Free)
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> 99f01fff532377507eb089a58df0a3511c3ab6d9
 
       if (action.payload === "DESC") {
         Free = state.books.filter(e => e.price === 'Free Book' )
