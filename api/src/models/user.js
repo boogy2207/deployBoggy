@@ -34,6 +34,21 @@ module.exports = (sequelize) => {
          password:  { type:DataTypes.STRING,  allowNull: false,
             required: true },
 
+         isValid: {
+            type: DataTypes.BOOLEAN
+         },
+         /* roles: {
+            type: DataTypes.ARRAY(DataTypes.STRING)
+         }, */
+         isAdmin: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+          },
+          isUser: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
+          },
+
          //enter throw google platform
 
       },

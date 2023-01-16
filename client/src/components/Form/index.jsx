@@ -1,10 +1,10 @@
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import useInputChange from "../../hooks/useInputChange";
 import Select from "../Select";
 import Label from "../Label";
 import Cloudinary from "../Cloudinary";
-
+import { postBook } from "../../store/slices/books/booksActions";
+import { useDispatch } from "react-redux";
 
 const initialStateValues = {
     title: "",
@@ -15,7 +15,6 @@ const initialStateValues = {
     imagelink: "",
     language: "",
     price: "",
-    Books: [],
 };
 const initialStateErrors = {
     title: "title name must be a string",
@@ -30,25 +29,13 @@ const initialStateErrors = {
 
 const Form = () => {
 
-    const { values, handleChange } = useInputChange(initialStateValues, initialStateErrors);
-
-    const { isLoading } = useAuth0();
+    const { values, handleChange, errors } = useInputChange(initialStateValues, initialStateErrors);
+    const dispatch = useDispatch();
 
     const onSubmit = (e) => {
         e.preventDefault(e);
-        //   if (!Object.entries(errors).length) {
-        //      dispatch(newBook(formValues));
-        //      setFormValues(initialStateValues);
-        //      alert(formValues.title + " created Succesfully");
-        //      navigate("/"); //or homepage, or whatever
-        //   } else {
-        //      let e = Object.values(errors);
-        //      alert(JSON.stringify(`Please correct: ${e}`));
-        //   }
+        !Object.entries(errors).length ? dispatch(postBook(values)) : alert(JSON.stringify(`Please correct: ${Object.values(errors)}`));
     };
-
-    if (isLoading) return <div>Loading...</div>;
-
 
     return (
         <>
@@ -116,7 +103,7 @@ const Form = () => {
                     {/**------------------------------------------------------------------------------------*/}
                     <label className="input-group m-5">
                         <span>Image</span>
-                        <Cloudinary />
+                        <Cloudinary handleChange={handleChange} />
                     </label>
                     {/**------------------------------------------------------------------------------------*/}
                     <Label
@@ -128,17 +115,6 @@ const Form = () => {
                         value={values.price}
                         handleChange={handleChange}
                         name='price'
-                    />
-                    {/**------------------------------------------------------------------------------------*/}
-                    <Label
-                        classNameSpan="input-group m-5"
-                        classNameInput="input input-bordered input-primary w-full max-w-xs"
-                        titleSpan='Language'
-                        type="text"
-                        placeholder="Type Here!"
-                        value={values.language}
-                        handleChange={handleChange}
-                        name='language'
                     />
                     {/**------------------------------------------------------------------------------------*/}
                     <label className="input-group m-5">
@@ -159,3 +135,4 @@ const Form = () => {
 };
 
 export default Form;
+

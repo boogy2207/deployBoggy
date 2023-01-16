@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2";
 import { getAllBooks, getBooksByTitle } from "./index";
 
 const urlBack = "https://deployboggy-production.up.railway.app";
@@ -11,7 +12,29 @@ export const getBooks = () => (dispatch) => {
 };
 
 export const getByTitle = (title) => (dispatch) => {
-  axios(`${urlBack}/books/title?title=${title}`)
-    .then((res) => dispatch(getBooksByTitle(res.data)))
-    .catch((e) => console.log(e));
+  if (title.length === 0) {
+    dispatch(getBooks());
+  } else {
+    axios(`${urlBack}/books/title?title=${title}`)
+      .then((res) => dispatch(getBooksByTitle(res.data)))
+      .catch((e) => console.log(e));
+  }
+};
+
+export const postBook = (book) => async (dispatch) => {
+  try {
+    const res = await axios.post(`${urlBack}/books`, book);
+    dispatch(getBooks());
+    return Swal.fire({
+      icon: "success",
+      title: "Book added",
+      text: `The book ${res.data.title} was added successfully`,
+      showConfirmButton: false,
+      timer: 2000,
+    }).then(() => {
+      window.location.replace("/");
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };

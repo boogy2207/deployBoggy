@@ -28,7 +28,7 @@
       75%{margin-left: -300%;}
       100%{margin-left: -300%;}
   }
-  @media only screen and (min-width:320px) and (max-width:768px){
+  @media only screen and (min-width:100px) and (max-width:768px){
   .slider, .slider ul, .slider img{
       height: 100vh;
   }

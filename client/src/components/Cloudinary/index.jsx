@@ -1,22 +1,16 @@
-import React from 'react'
-import { useState } from 'react'
-
-const Cloudinary = () => {
+const Cloudinary = ({ handleChange }) => {
 
   /* const onFileInputChange = ({ target })=>{
       if (target.files === 0) return;
 
       console.log("Uploading images")
   } */
-  const [image, setImage] = useState("")
-  const [loading, setLoading] = useState(false)
 
   const uploadImage = async (e) => {
     const files = e.target.files
     const data = new FormData()
     data.append("file", files[0])
     data.append("upload_preset", "booky-images")
-    setLoading(true)
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/dkeduwift/upload",
       {
@@ -25,15 +19,14 @@ const Cloudinary = () => {
       }
     )
     const file = await res.json()
-    setImage(file.secure_url)
-    setLoading(false)
+    handleChange(e, file.secure_url)
   }
 
   return (
     <input
       type="file"
       className='file-input file-input-bordered border-primary w-full max-w-xs'
-      name='file'
+      name='imagelink'
       placeholder="Upload your image here"
       onChange={uploadImage}
     />

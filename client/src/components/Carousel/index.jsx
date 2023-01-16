@@ -7,7 +7,7 @@ import style from './carousel.module.css'
 export default function Carousel() {
   return (
 
-<div class={style.slider}>
+<div className={style.slider}>
 <ul>
     <li>
         <img src={harry}/>

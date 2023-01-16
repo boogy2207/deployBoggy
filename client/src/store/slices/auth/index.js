@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
 
 const USER = "user";
 
-const initialState = {
-  user: {},
+let initialState = {
+  user: null,
 };
 
 const localStorageUser = localStorage.getItem(USER);
+localStorageUser && (initialState = JSON.parse(localStorageUser));
 
 export const authSlice = createSlice({
   name: "cart",
@@ -14,17 +16,42 @@ export const authSlice = createSlice({
   reducers: {
     postUser: (state, action) => {
       const user = action.payload;
-      console.log(user);
       if (!localStorageUser) {
         localStorage.setItem(USER, JSON.stringify(user));
         state.user = user;
+        window.location.replace("/");
       } else {
         state.user = localStorageUser;
       }
     },
+    logoutUser: (state) => {
+      localStorage.removeItem(USER);
+      state.user = null;
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "You have been logged out",
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        window.location.replace("/");
+      });
+    },
+    registerUser: (state, action) => {
+      const { success, msg } = action.payload;
+      Swal.fire({
+        icon: success ? "success" : "error",
+        title: success ? "Success" : "Error",
+        text: msg,
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        window.location.replace("/login");
+      });
+    },
   },
 });
 
-export const { postUser } = authSlice.actions;
+export const { postUser, logoutUser, registerUser } = authSlice.actions;
 
 export default authSlice.reducer;

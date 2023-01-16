@@ -1,58 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useSelector } from "react-redux";
+
 
 const Profile = () => {
-    const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-    const [userMetadata, setUserMetadata] = useState(null);
 
-    console.log(user.sub);
-
-    useEffect(() => {
-        const getUserMetadata = async () => {
-            const domain = "pfreactbooks.us.auth0.com";
-
-            try {
-                const accessToken = await getAccessTokenSilently({
-                    audience: `https://${domain}/api/v2/`,
-                    scope: "read:current_user",
-                });
-
-                const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-
-                const metadataResponse = await fetch(userDetailsByIdUrl, {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                });
-                console.log(accessToken);
-                console.log(metadataResponse);
-
-                const { user_metadata } = await metadataResponse.json();
-                
-                setUserMetadata(user_metadata);
-            } catch (e) {
-                console.log(e.message);
-            }
-        };
-
-        getUserMetadata();
-    }, [getAccessTokenSilently, user?.sub]);
-
-
+    const user = useSelector(state => state.user.user);
+    console.log(user);
     return (
-        isAuthenticated && (
-            <div>
-                <img src={user.picture} alt={user.name} />
-                <h2>{user.name}</h2>
-                <p>{user.email}</p>
-                <h3>User Metadata</h3>
-                {userMetadata ? (
-                    <pre>{JSON.stringify(userMetadata, null, 2)}</pre>
-                ) : (
-                    "No user metadata defined"
-                )}
+        <div className="mt-20 mx-32 items-center justify-center">
+            <div className="card card-side bg-base-100 shadow-xl flex items-center justify-center">
+                <div className="avatar">
+                    <div className="w-64 mask rounded-xl">
+                        <img src="https://placeimg.com/400/400/people" />
+                    </div>
+                </div>
+                <div className="card-body">
+                    <h2 className="card-title">{user.name}</h2>
+                    <p>Email: {user.email}</p>
+                    <p>Type User: {user.isAdmin ? 'Admin' : 'User'}</p>
+                    <p>{user.isBanned ? 'Banned' : 'Active'}</p>
+                    <div className="card-actions justify-end">
+                        <button className="btn btn-primary">Edit Profile</button>
+                    </div>
+                </div>
             </div>
-        )
+        </div>
     );
 };
 

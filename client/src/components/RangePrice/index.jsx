@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from 'react-redux'
+import { rangePrice } from "../../store/slices/books";
 import styles from './range.module.css'
 
 const priceGap = 1000;
 const valueMin = 0;
-const valueMax = 10000;
+const valueMax = 100000;
 
 function RangePrice() {
 
-    const [minPrice, setMinPrice] = useState(2500);
-    const [maxPrice, setMaxPrice] = useState(7500);
+    const dispach = useDispatch()
+    const [minPrice, setMinPrice] = useState(valueMin);
+    const [maxPrice, setMaxPrice] = useState(valueMax);
     const [range, setRange] = useState({ left: '25%', right: '75%' });
+
+
+    useEffect(()=>{
+        dispach(rangePrice({minPrice,maxPrice}));
+    },[minPrice,maxPrice])
 
     const handleInput = (e, inp) => {
         let value = (e.target.value);
@@ -26,21 +34,22 @@ function RangePrice() {
         });
     };
 
+
     return (
-        <div className={styles.divContSide}>
+        <div className='flex felx-col justify-center items-center'>
             <div className={styles.wrapper}>
                 <h2 className='text-lg'>Price Range</h2>
-                <div className={styles.priceInput}>
+                <div className={`flex ${styles.priceInput}`}>
                     <div className={styles.field}>
                         <button className="btn gap-2">
                             Min
-                            <div className="badge">{minPrice}</div>
+                            <div className="">{minPrice}</div>
                         </button>
                     </div>
                     <div className={styles.field}>
                         <button className="btn gap-2">
                             Max
-                            <div className="badge">{maxPrice}</div>
+                            <div className="">{maxPrice}</div>
                         </button>
                     </div>
 
