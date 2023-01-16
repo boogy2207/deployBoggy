@@ -11,9 +11,12 @@ export const getBooks = () => (dispatch) => {
 };
 
 export const getByTitle = (title) => (dispatch) => {
+  
+  if(title.length !== 0.){
   axios(`${localhost}/books/title?title=${title}`)
-    .then((res) => dispatch(getBooksByTitle(res.data)))
-    .catch((e) => console.log(e));
+  .then((res) => dispatch(getBooksByTitle(res.data)))
+  .catch((e) => console.log(e));
+}
 };
 
 export const postBook = (book) => () => {

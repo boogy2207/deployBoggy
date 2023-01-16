@@ -4,27 +4,26 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import CardMedia from '@mui/material/CardMedia';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { getBooks } from '../../store/slices/books/booksActions';
-import NavBar from "../NavBar";
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
 
-export default function Detail(props) {
+export default function Detail() {
 
     const { id } = useParams();
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(getBooks())
-    }, [])
-
     const allBooks = useSelector(state => state.books)
-
+    
     let bookID = allBooks.books.filter(e => id === e.id)
+
+    const navigate = useNavigate();
+    
+    useEffect(()=>{
+        if(bookID.length === 0){
+            navigate("/");
+        }
+    },[bookID])
 
     return (
         <Box sx={{

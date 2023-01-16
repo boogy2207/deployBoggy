@@ -5,12 +5,19 @@ import { rangePrice } from "../../store/slices/books";
 
 const priceGap = 1000;
 const valueMin = 0;
-const valueMax = 50000;
+const valueMax = 100000;
 
 function RangePrice() {
 
+<<<<<<< HEAD
     const [minPrice, setMinPrice] = useState(valueMin);
     const [maxPrice, setMaxPrice] = useState(valueMax);
+=======
+    const dispach = useDispatch()
+
+    const [minPrice, setMinPrice] = useState(15000);
+    const [maxPrice, setMaxPrice] = useState(85000);
+>>>>>>> 1fd86a8de323056ffa998a85d46eaa5c5cb1a1f1
     const [range, setRange] = useState({ left: '25%', right: '75%' });
 
     const dispach = useDispatch();
