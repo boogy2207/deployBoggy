@@ -5,14 +5,14 @@ import { rangePrice } from "../../store/slices/books";
 
 const priceGap = 1000;
 const valueMin = 0;
-const valueMax = 50000;
+const valueMax = 100000;
 
 function RangePrice() {
 
     const dispach = useDispatch()
 
-    const [minPrice, setMinPrice] = useState(5000);
-    const [maxPrice, setMaxPrice] = useState(45000);
+    const [minPrice, setMinPrice] = useState(15000);
+    const [maxPrice, setMaxPrice] = useState(85000);
     const [range, setRange] = useState({ left: '25%', right: '75%' });
 
     useEffect(()=>{

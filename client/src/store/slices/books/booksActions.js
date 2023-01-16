@@ -11,7 +11,10 @@ export const getBooks = () => (dispatch) => {
 };
 
 export const getByTitle = (title) => (dispatch) => {
-  axios(`${urlBack}/books/title?title=${title}`)
-    .then((res) => dispatch(getBooksByTitle(res.data)))
-    .catch((e) => console.log(e));
+  
+  if(title.length !== 0.){
+  axios(`${localhost}/books/title?title=${title}`)
+  .then((res) => dispatch(getBooksByTitle(res.data)))
+  .catch((e) => console.log(e));
+}
 };
