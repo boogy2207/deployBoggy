@@ -13,14 +13,14 @@ export const login = (user) => (dispatch) => {
       console.log(res.data);
       return dispatch(postUser(res.data));
     })
-    .catch((e) =>
+    .catch((e) => {
+      console.log(e);
       Swal.fire({
         icon: "error",
         title: "Error",
         text: e.response.data,
-      })
-    );
-  console.log(e.response.data);
+      });
+    });
 };
 
 export const getAllUsers = () => () => {
