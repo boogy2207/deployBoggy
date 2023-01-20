@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Dashboard from './components/Dashboard';
 const Home = lazy(() => import('./components/Home'));
 const Form = lazy(() => import('./components/Form'));
 const Details = lazy(() => import('./components/Detail'));
@@ -40,6 +41,7 @@ function App() {
         <Route path='/login' element={<Suspense fallback={<div>Loading...</div>}><Login /></Suspense>} />
         <Route path='/register' element={<Suspense fallback={<div>Loading...</div>}><Register /></Suspense>} />
         <Route path='/denied' element={<Suspense fallback={<div>Loading...</div>}><Denied /></Suspense>} />
+        <Route path='/dashboard' element={<Suspense fallback={<div>Loading...</div>}><Dashboard /></Suspense>} />
       </Routes>
     </>
   );
