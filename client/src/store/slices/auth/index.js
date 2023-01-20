@@ -5,6 +5,7 @@ const USER = "user";
 
 let initialState = {
   user: null,
+  users: null
 };
 
 const localStorageUser = localStorage.getItem(USER);
@@ -49,9 +50,12 @@ export const authSlice = createSlice({
         window.location.replace("/login");
       });
     },
+    allUsers: (state, action) => {
+      state.users = action.payload;
+    }
   },
 });
 
-export const { postUser, logoutUser, registerUser } = authSlice.actions;
+export const { postUser, logoutUser, registerUser, allUsers } = authSlice.actions;
 
 export default authSlice.reducer;

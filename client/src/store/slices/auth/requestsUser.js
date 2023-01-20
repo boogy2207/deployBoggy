@@ -1,6 +1,6 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import { postUser, registerUser } from ".";
+import { allUsers, postUser, registerUser } from ".";
 
 const urlBack = "https://deployboggy-production.up.railway.app";
 const localhost = "http://localhost:3002";
@@ -23,10 +23,10 @@ export const login = (user) => (dispatch) => {
     });
 };
 
-export const getAllUsers = () => () => {
+export const getAllUsers = () => (dispatch) => {
   axios
-    .get(`${urlBack}/user`)
-    .then((res) => console.log(res.data))
+    .get(`${localhost}/user`)
+    .then((res) => dispatch(allUsers(res.data)))
     .catch((e) => console.log(e));
 };
 
@@ -40,5 +40,12 @@ export const register = (user) => (dispatch) => {
   axios
     .post(`${urlBack}/user`, data)
     .then((res) => dispatch(registerUser(res.data)))
+    .catch((e) => console.log(e));
+};
+
+export const deleteUsers = (id) => () => {
+  axios
+    .get(`${localhost}/user/${id}`)
+    .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };
