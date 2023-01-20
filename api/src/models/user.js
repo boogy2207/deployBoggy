@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
             primaryKey: true,
             allowNull: false,
             unique: true,
-         }, 
+         },
          name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -25,32 +25,31 @@ module.exports = (sequelize) => {
             allowNull: false,
             validate: {
                isEmail: true,
-            }, code: { type: DataTypes.STRING, 
-               required: true },
-            status: { type: DataTypes.STRING,
-                required: true,
-                 default: "UNVERIFIED" },
+            },
+            code: { type: DataTypes.STRING, required: true },
+            status: {
+               type: DataTypes.STRING,
+               required: true,
+               default: "UNVERIFIED",
+            },
          },
-         password:  { type:DataTypes.STRING,  allowNull: false,
-            required: true },
+         password: { type: DataTypes.STRING, allowNull: false, required: true },
 
          isValid: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
          },
          /* roles: {
             type: DataTypes.ARRAY(DataTypes.STRING)
          }, */
          isAdmin: {
             type: DataTypes.BOOLEAN,
-            defaultValue: false
-          },
-          isUser: {
+            defaultValue: false,
+         },
+         isUser: {
             type: DataTypes.BOOLEAN,
-            defaultValue: true
-          },
-
+            defaultValue: true,
+         },
          //enter throw google platform
-
       },
       {
          sequelize,
