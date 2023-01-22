@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { addToCart } from '../../store/slices/cart';
+import style from './detail.module.css'
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import StarIcon from '@mui/icons-material/Star';
+import StarHalfIcon from '@mui/icons-material/StarHalf';
+import { yellow } from '@mui/material/colors';
 
 export default function Detail() {
 
@@ -23,38 +28,35 @@ export default function Detail() {
         <>
             {
                 bookID.length > 0 ? (
-                    <div className="my-10 flex w-full items-center justify-center">
-                        <div className="card w-9/12 bg-base-100 shadow-xl">
-                            <figure className='flex flex-col'>
-                                <img className='my-10' src={bookID[0].imagelink} alt={bookID[0].id} />
-                                <div className="card-actions justify-end">
-                                    <label htmlFor="my-modal-4" className="btn" onClick={() => { addItem(bookID[0]) }}>
-                                        Add to cart
-                                    </label>
-                                    <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-                                    <label htmlFor="my-modal-4" className="modal modal-bottom sm:modal-middle">
-                                        <div className="modal-box">
-                                            <h3 className="font-bold text-xl text-center">Your product has been added to your cart</h3>
-                                            <p className="py-4">Would you like to continue shopping or go to the shopping cart?</p>
-                                            <div className="modal-action">
-                                                <Link to='/'><label htmlFor="my-modal-4" className="btn">Continue Shipping</label></Link>
-                                                <Link to='/cart'><label htmlFor="my-modal-4" className="btn">Go to cart</label></Link>
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div>
-                            </figure>
-                            <div className="card-body">
-                                <h2 className="card-title">{bookID[0].title}</h2>
-                                <p><strong>Author/s:</strong> {bookID[0].authors}</p>
-                                <p><strong>Category:</strong> {bookID[0].category}</p>
-                                <p><strong>Language:</strong> {bookID[0].language}</p>
-                                <p><strong>Pages:</strong> {bookID[0].pagecount}</p>
-                                <p>{isNaN(parseFloat(bookID[0].price)) ? `${bookID[0].price}` : `$ ${bookID[0].price}`}</p>
-                                <p>{bookID[0].description}</p>
+
+                    <div className={style.container}>
+                        <div className={style.img}>
+                            <img src={bookID[0].imagelink} alt={bookID[0].id}/>
+                        </div>
+                        <div className={style.price}>
+                            <h1>{bookID[0].title}</h1>
+                            <h2>$11,70</h2>
+                            <div  className={style.start}>
+                            <StarIcon sx={{ fontSize: 50, color: yellow[700] }}/>
+                            <StarIcon sx={{ fontSize: 50, color: yellow[700] }}/>
+                            <StarHalfIcon sx={{ fontSize: 50, color: yellow[700] }}/>
+                            <StarOutlineIcon sx={{ fontSize: 50, color: yellow[700] }}/>
+                            <StarOutlineIcon sx={{ fontSize: 50, color: yellow[700] }}/>
                             </div>
                         </div>
-                    </div >
+                        <div className={style.amount}>
+                            <div className="card-actions flex justify-end">
+                                <button className="btn btn-primary btn-xs sm:btn-sm" /*onClick={() => handleClick(book, 'remove')}*/>-</button>
+                                <button className="btn no-animation cursor-default btn-active btn-xs sm:btn-sm">{/*book.quantity*/}</button>
+                                <button className="btn btn-primary btn-xs sm:btn-sm" /*onClick={() => handleClick(book, 'add')}*/>+</button>
+                            </div>
+
+                        </div>
+                        <div className={style.buttons}>
+                            <button className={style.button1}>Add to cart</button>
+                            <button className={style.button2}>Buy it now</button>
+                        </div>
+                    </div>
                 ) : <>Book not Found...</>
             }
         </>
