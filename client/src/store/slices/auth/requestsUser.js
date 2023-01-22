@@ -25,7 +25,7 @@ export const login = (user) => (dispatch) => {
 
 export const getAllUsers = () => (dispatch) => {
   axios
-    .get(`${localhost}/user`)
+    .get(`${urlBack}/user`)
     .then((res) => dispatch(allUsers(res.data)))
     .catch((e) => console.log(e));
 };
@@ -45,7 +45,7 @@ export const register = (user) => (dispatch) => {
 
 export const deleteUsers = (id) => () => {
   axios
-    .get(`${localhost}/user/${id}`)
+    .get(`${urlBack}/user/${id}`)
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };
