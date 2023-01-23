@@ -1,0 +1,14 @@
+.footer {
+    margin-top: 2649px;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 80px;
+    
+    width: 1002px;
+    height: 247px;
+}

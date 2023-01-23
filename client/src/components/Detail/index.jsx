@@ -9,6 +9,7 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import { yellow } from '@mui/material/colors';
+import Footer from '../Footer';
 
 export default function Detail() {
 
@@ -28,20 +29,20 @@ export default function Detail() {
         <>
             {
                 bookID.length > 0 ? (
-
-                    <div className={style.container}>
+<>
                         <div className={style.img}>
-                            <img src={bookID[0].imagelink} alt={bookID[0].id}/>
+                            <img src={bookID[0].imagelink} alt={bookID[0].id} />
                         </div>
                         <div className={style.price}>
-                            <h1>{bookID[0].title}</h1>
+                        <h1>{bookID[0].title}</h1>
+                            <h3>{bookID[0].title}</h3>
                             <h2>$11,70</h2>
-                            <div  className={style.start}>
-                            <StarIcon sx={{ fontSize: 50, color: yellow[700] }}/>
-                            <StarIcon sx={{ fontSize: 50, color: yellow[700] }}/>
-                            <StarHalfIcon sx={{ fontSize: 50, color: yellow[700] }}/>
-                            <StarOutlineIcon sx={{ fontSize: 50, color: yellow[700] }}/>
-                            <StarOutlineIcon sx={{ fontSize: 50, color: yellow[700] }}/>
+                            <div className={style.start}>
+                                <StarIcon sx={{ fontSize: 50, color: yellow[700] }} />
+                                <StarIcon sx={{ fontSize: 50, color: yellow[700] }} />
+                                <StarHalfIcon sx={{ fontSize: 50, color: yellow[700] }} />
+                                <StarOutlineIcon sx={{ fontSize: 50, color: yellow[700] }} />
+                                <StarOutlineIcon sx={{ fontSize: 50, color: yellow[700] }} />
                             </div>
                         </div>
                         <div className={style.amount}>
@@ -56,7 +57,57 @@ export default function Detail() {
                             <button className={style.button1}>Add to cart</button>
                             <button className={style.button2}>Buy it now</button>
                         </div>
-                    </div>
+                        <div className={style.divider}><h1>FEATURES</h1></div>
+
+                        <div className={style.tableConteiner}>
+                            <table>
+                                    <tr>
+                                        <th>Title of the book</th>
+                                        <td>{bookID[0].title}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Author</th>
+                                        <td>{bookID[0].authors}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Language</th>
+                                        <td>{bookID[0].language}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Number of pages</th>
+                                        <td>{bookID[0].pagecount}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Book genre</th>
+                                           <td>{bookID[0].category}</td>
+                                    </tr>
+                            </table>
+                        </div>
+
+                        <div className={style.divider2}><h1>DESCRIPTION</h1></div>
+
+                        <div className={style.description}><h1>{bookID[0].description}</h1></div>
+                        <div className={style.reviews}>
+                            <h1>Customer reviews</h1>
+                            <div className={style.comments}>
+                                <h1>usuario</h1>
+                                <h2>Excelente Libro!!!</h2>
+                            </div>
+                            <div className={style.comments}>
+                                <h1>usuario</h1>
+                                <h2>Excelente Libro!!!</h2>
+                            </div>
+                            <div className={style.comments}>
+                                <h1>usuario</h1>
+                                <h2>Excelente Libro!!!</h2>
+                            </div>
+                            
+                        </div>
+                        <button className={style.write}><h1>Write a review</h1></button>
+                        <div className={style.footer}>
+                        <Footer/>
+                        </div>
+                        </>
                 ) : <>Book not Found...</>
             }
         </>
