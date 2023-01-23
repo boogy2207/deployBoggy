@@ -1,4 +1,3 @@
-
 .img {
     position: absolute;
     width: 647px;
@@ -101,6 +100,17 @@
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
+    font-size: 45px;
+    line-height: 45px;
+    color: black;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.price h3 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
     font-size: 29.6765px;
     line-height: 45px;
     color: #003F62;
@@ -122,4 +132,178 @@
     align-items: center;
     padding: 0px;
     gap: 9.67px;
+}
+
+.divider {
+    position: absolute;
+    width: 1231px;
+    height: 0px;
+    left: 55px;
+    top: 1109px;
+    border: 1px solid #4A4A4A;
+}
+
+.divider h1 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 29.6765px;
+    line-height: 45px;
+    color: #363636;
+}
+
+.divider2 {
+    position: absolute;
+    width: 1231px;
+    height: 0px;
+    left: 55px;
+    top: 1609px;
+    border: 1px solid #4A4A4A;
+}
+
+.divider2 h1 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 29.6765px;
+    line-height: 45px;
+    color: #363636;
+}
+
+.tableConteiner {
+    position: absolute;
+    left: 250px;
+    top: 1249px;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+}
+
+table,
+th,
+td {
+    border: 1px solid #f5f5f5;
+    height: 50px;
+    width: 914px;
+    background: #f5f5f5;
+    font-family: 'Poppins';
+    font-size: 29.6765px;
+    text-align: center;
+}
+
+table,
+th {
+    background: #ebebeb;
+}
+
+.description {
+    position: absolute;
+    width: 1231px;
+    height: 0px;
+    left: 55px;
+    top: 1709px;
+}
+
+.description h1 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28.6765px;
+    line-height: 45px;
+    color: #363636;
+}
+
+.reviews {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 17px;
+    position: absolute;
+    width: 1214px;
+    height: 600px;
+    left: 53px;
+    top: 2009px;
+    border: 1px solid #B8B8B8;
+    border-radius: 20px;
+    background: #B8B8B8;
+}
+
+.reviews h1 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22.68px;
+    line-height: 34px;
+    color: #003F62;
+}
+
+.comments {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 0px 0px 49px;
+    gap: 17px;
+    width: 950px;
+    height: 137px;
+    border: 1px solid white;
+    border-radius: 20px;
+}
+
+.comments h1{
+    width: 209px;
+    height: 31px;
+    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22.68px;
+    line-height: 34px;
+    color: #003F62;
+}
+
+.comments h2{
+    width: 163px;
+    height: 30px;
+    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.68px;
+    line-height: 30px;
+    color: #4F4F4F;
+}
+
+.write{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    
+    position: absolute;
+    width: 196px;
+    height: 40px;
+    left: 112px;
+    top: 2649px;
+    background: #003F62;
+}
+
+.write h1{
+    width: 139px;
+    height: 30px;
+    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.68px;
+    line-height: 30px;
+    color: #FFFFFF;
+}
+
+.footer{
+    top: 2649px;
 }
