@@ -45,7 +45,21 @@ export const register = (user) => (dispatch) => {
 
 export const deleteUsers = (id) => () => {
   axios
-    .get(`${urlBack}/user/${id}`)
+    .delete(`${urlBack}/user/${id}`)
+    .then((res) => console.log(res.data))
+    .catch((e) => console.log(e));
+};
+
+export const restoreUsers = (id) => () => {
+  axios
+    .put(`${urlBack}/user/restore/${id}`)
+    .then((res) => console.log(res.data))
+    .catch((e) => console.log(e));
+};
+
+export const putUser = (id, changes) => () => {
+  axios
+    .put(`${urlBack}/user/${id}`,changes)
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };
