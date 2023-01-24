@@ -60,6 +60,10 @@ function NavBar() {
                           Cargar Libro
                           <span className="badge">New</span>
                         </Link>
+                        <Link className="justify-between text-cyan-500" to={'/dashboard'}>
+                          Dashboard
+                        </Link>
+                        
                       </li>
                     )
                   }
