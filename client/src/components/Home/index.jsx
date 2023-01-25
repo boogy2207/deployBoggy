@@ -5,11 +5,6 @@ import RangePrice from "../RangePrice";
 
 export default function Home() {
 
-    //no quitar evita un bug
-    //ke weá, como que quita un bug? xd
-    useEffect(() => {
-    }, [])
-
     return (
         <div className="flex flex-col">
             <div className="flex justify-center mt-10 mx-36 ">
