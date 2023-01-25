@@ -222,11 +222,10 @@ th {
     justify-content: flex-start;
     align-items: center;
     gap: 17px;
-    position: absolute;
+    padding: 25px;
     width: 1214px;
-    height: 600px;
+    height: auto;
     left: 53px;
-    top: 2009px;
     border: 1px solid #B8B8B8;
     border-radius: 20px;
     background: #B8B8B8;
@@ -283,14 +282,12 @@ th {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 0px;
+    padding: 7px;
     gap: 10px;
     
-    position: absolute;
     width: 196px;
-    height: 40px;
-    left: 112px;
-    top: 2649px;
+    margin-left: 20px;
+    margin-top: 45px;
     background: #003F62;
 }
 
@@ -304,4 +301,20 @@ th {
     font-size: 19.68px;
     line-height: 30px;
     color: #FFFFFF;
+}
+
+textarea{
+    width: 80%;
+    border-radius: 7px;
+    padding: 10px;
+}
+
+.box{
+    position: absolute;
+    left: 53px;
+    top: 2009px
+}
+
+.footer {
+    margin-top: 2709px;
 }
