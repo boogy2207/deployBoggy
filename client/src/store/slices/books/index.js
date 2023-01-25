@@ -5,6 +5,7 @@ export const bookSlice = createSlice({
   initialState: {
     books: [],
     allBookys: [],
+    buy: {}
   },
   reducers: {
     getAllBooks: (state, action) => {
@@ -14,6 +15,9 @@ export const bookSlice = createSlice({
     getBooksByTitle: (state, action) => {
       state.books = action.payload;
       state.allBookys = action.payload;
+   },
+   getStripe: (state, action) =>{
+      state.buy = action.payload
    },
     price: (state, action) => {
       let ordenSort;

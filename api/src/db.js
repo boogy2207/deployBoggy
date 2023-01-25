@@ -49,14 +49,21 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-const { Book, Category } = sequelize.models;
+const { Book, Category, Buy, BuyItem, User } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
  Book.belongsToMany(Category, {through:"book_category"})
  Category.belongsToMany(Book, {through:"book_category"})
 
+ Buy.hasMany(BuyItem)
+ BuyItem.belongsTo(Buy) 
+ 
+ Book.hasMany(BuyItem)
+ BuyItem.belongsTo(Book) 
 
+ User.hasMany(Book)
+ Book.belongsTo(User)
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 module.exports = {

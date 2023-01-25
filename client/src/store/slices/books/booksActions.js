@@ -15,3 +15,21 @@ export const getByTitle = (title) => (dispatch) => {
     .then((res) => dispatch(getBooksByTitle(res.data)))
     .catch((e) => console.log(e));
 };
+
+export const postStripe = (idStripe, totalAmount, cart, userId) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.post(`http://localhost:3002/stripe`, {
+        idStripe,
+        totalAmount,
+        cart,
+        userId
+      })
+      console.log(res)
+      return dispatch(getStripe(res.data))
+    } catch (error) {
+      console.log('Error action post Stripe')
+      
+    }
+  }
+}

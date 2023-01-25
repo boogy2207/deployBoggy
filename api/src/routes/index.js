@@ -17,9 +17,11 @@ app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }))
 const booksRouteDB = require("./booksRoute");
 const usersRouteDB = require("./userRouter");
+const stripeRoute = require("./stripeRoute")
 
 router.use("/books", booksRouteDB);
 router.use("/user", usersRouteDB);
+router.use("/stripe", stripeRoute)
 
 
 

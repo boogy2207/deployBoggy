@@ -1,12 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeItemFromCart, deleteBookFromCart } from "../../store/slices/cart";
 import Swal from 'sweetalert2';
+import { postStripe } from "../../store/slices/books/booksActions";
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { useEffect } from "react";
 
 function Cart() {
-
+    
     const cart = useSelector(state => state.cart.cart);
     const subTotal = useSelector(state => state.cart.subTotal);
     const dispatch = useDispatch();
+    const stripe = useStripe()
+    const elements = useElements()
+    const [message, setMessage] = useState('')
+    const [success, setSuccess] = useState(false)
+    const [send, setSend] = useState(false)
+    const [err, setErr] = useState(false)
 
     const handleClick = (book, from) => {
         if (book.quantity === 1 && from === 'remove') return Swal.fire({
@@ -17,6 +26,45 @@ function Cart() {
         });
         from === 'add' ? dispatch(addToCart(book)) : from === 'remove' ? dispatch(removeItemFromCart(book)) : dispatch(deleteBookFromCart(book));
     }
+
+    const handleStripe = async (e) => {
+        e.preventDefault()
+        setSend(true)
+      const { error, paymentMethod } = await stripe.createPaymentMethod({ // eslint-disable-line
+      type: 'card',
+      card: elemets.getElement(CardElement)
+    })
+    console.log(paymentMethod)
+    if (!error) {
+      const { id } = paymentMethod
+      dispatch(postStripe(id, totalAmount * 100, carrito, user.user.id))
+    }
+    }
+
+    useEffect(() => {
+        if (typeof buy === 'string') {
+          setErr(true)
+          setMessage('Algo salio mal!!')
+          setTimeout(() => {
+            setErr(false)
+            setSend(false)
+          }, 4000)
+        } else if (Object.keys(buy).length) {
+          // const publication = publications.find(p => carrito[0].id === p.id)
+          // console.log(publication)
+          // socket.emit('sendBuy', {
+          //   senderName: user.username,
+          //   receiverId: publication.userId,
+          //   publicationTitle: publication.title
+          // })
+          crearCarr()
+          setSuccess(true)
+          setMessage('Pago confirmado!! gracias! Vuelva Pronto 😁')
+          setTimeout(() => {
+            history.push('/userPurchased')
+          }, 5173)
+        }
+      }, [buy])
 
     return (
         <>
