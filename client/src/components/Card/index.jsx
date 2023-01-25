@@ -12,17 +12,20 @@ function Cards() {
   }, [])
 
   const allBooks = useSelector(state => state.books);
-  const dispatch = useDispatch();
 
+  const booksAvalaibles = allBooks && allBooks.books.filter(e => e.destroyTime === null)
+  const dispatch = useDispatch();
+  
   const addItem = (book) => {
     dispatch(addToCart(book))
   };
-
+  
   //REFACTOR
-
+  
   const [page, setPage] = useState(0);
   const [booksPaginated, setBooksPaginated] = useState([]);
-
+  
+  console.log(booksPaginated)
   const handlePage = (i) => {
     setPage(i);
   }
@@ -30,8 +33,8 @@ function Cards() {
   useEffect(() => {
     let aux = [];
     let auxI = 10;
-    for (let i = 0; i < allBooks.books.length; i += auxI) {
-      aux.push(allBooks.books.slice(i, i + auxI));
+    for (let i = 0; i < booksAvalaibles.length; i += auxI) {
+      aux.push(booksAvalaibles.slice(i, i + auxI));
     }
     setBooksPaginated(aux);
   }, [allBooks])
