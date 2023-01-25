@@ -55,22 +55,14 @@ router.get("/", async (req, res) => {
 router.get("/title", async (req, res) => {
   try {
     const { title } = req.query;
-    console.log(title);
-    const booky = await Book.findAll({
-      where: {
-        title: {
-          [Op.iLike]: `%${title}%`,
-        },
-      },
-    });
-
+    
     const searchBook = await axios.get(
       `https://www.googleapis.com/books/v1/volumes?q=${title}&maxResults=40&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk`
-    );
+      );
 
     const dataToSend = await searchBook.data.items.map((e) => booksModel(e));
 
-    res.status(200).send(dataToSend.concat(booky));
+    res.status(200).send(dataToSend);
   } catch (error) {
     res.status(404).send({ msg: "The title does not exist" });
     console.log(error);
@@ -164,9 +156,7 @@ const booksModel = (e) => {
         ? e.volumeInfo.language
         : "no language",
     price:
-      e.saleInfo.listPrice !== undefined
-        ? Math.round(e.saleInfo.listPrice.amount).toString()
-        : "Free Book",
+    Math.floor(Math.random()*1000),
   };
   return book;
 };

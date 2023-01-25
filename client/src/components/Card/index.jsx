@@ -14,6 +14,8 @@ function Cards() {
   const allBooks = useSelector(state => state.books);
 
   const booksAvalaibles = allBooks && allBooks.books.filter(e => e.destroyTime === null)
+  const search = allBooks && allBooks.books.filter(e => Object.values(e).length === 9)
+
   const dispatch = useDispatch();
   
   const addItem = (book) => {
@@ -25,7 +27,7 @@ function Cards() {
   const [page, setPage] = useState(0);
   const [booksPaginated, setBooksPaginated] = useState([]);
   
-  console.log(booksPaginated)
+  console.log(search)
   const handlePage = (i) => {
     setPage(i);
   }
@@ -33,9 +35,16 @@ function Cards() {
   useEffect(() => {
     let aux = [];
     let auxI = 10;
-    for (let i = 0; i < booksAvalaibles.length; i += auxI) {
-      aux.push(booksAvalaibles.slice(i, i + auxI));
+    if(search.length > 0){
+    for (let i = 0; i < search.length; i += auxI) {
+        aux.push(search.slice(i, i + auxI));
+      }
+      }else{
+        for (let i = 0; i < booksAvalaibles.length; i += auxI) {
+          aux.push(booksAvalaibles.slice(i, i + auxI));
+        }
     }
+    console.log(aux)
     setBooksPaginated(aux);
   }, [allBooks])
 
