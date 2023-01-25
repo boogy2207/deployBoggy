@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { addToCart } from '../../store/slices/cart';
 import style from './detail.module.css'
@@ -15,15 +15,22 @@ export default function Detail() {
 
     const { id } = useParams();
     const allBooks = useSelector(state => state.books)
+
     const dispatch = useDispatch();
-
+    
     let bookID = allBooks.books.filter(e => id === e.id)
-
-
+    
     const addItem = (book) => {
-        dispatch(addToCart(book))
+            
+            dispatch(addToCart(book))
+            
+            Swal.fire({
+                icon: 'success',
+                title: 'Your product has been added to your cart',
+                text: 'Continue Shipping!',
+            });
+        
     };
-
 
     return (
         <>
@@ -36,7 +43,7 @@ export default function Detail() {
                         <div className={style.price}>
                         <h1>{bookID[0].title}</h1>
                             <h3>{bookID[0].title}</h3>
-                            <h2>$11,70</h2>
+                            <h2>{bookID[0].price === 'Free Book' ? bookID[0].price : `$${bookID[0].price}`}</h2>
                             <div className={style.start}>
                                 <StarIcon sx={{ fontSize: 50, color: yellow[700] }} />
                                 <StarIcon sx={{ fontSize: 50, color: yellow[700] }} />
@@ -45,16 +52,9 @@ export default function Detail() {
                                 <StarOutlineIcon sx={{ fontSize: 50, color: yellow[700] }} />
                             </div>
                         </div>
-                        <div className={style.amount}>
-                            <div className="card-actions flex justify-end">
-                                <button className="btn btn-primary btn-xs sm:btn-sm" /*onClick={() => handleClick(book, 'remove')}*/>-</button>
-                                <button className="btn no-animation cursor-default btn-active btn-xs sm:btn-sm">{/*book.quantity*/}</button>
-                                <button className="btn btn-primary btn-xs sm:btn-sm" /*onClick={() => handleClick(book, 'add')}*/>+</button>
-                            </div>
 
-                        </div>
                         <div className={style.buttons}>
-                            <button className={style.button1}>Add to cart</button>
+                            <button className={style.button1} onClick={() => { addItem(bookID[0]) }}>Add to cart</button>
                             <button className={style.button2}>Buy it now</button>
                         </div>
                         <div className={style.divider}><h1>FEATURES</h1></div>
@@ -85,8 +85,8 @@ export default function Detail() {
                         </div>
 
                         <div className={style.divider2}><h1>DESCRIPTION</h1></div>
-
-                        <div className={style.description}><h1>{bookID[0].description}</h1></div>
+                        
+                        <div className={style.description}><h1>{`${bookID[0].description.slice(0, 459)}...`}</h1></div>
                         <div className={style.reviews}>
                             <h1>Customer reviews</h1>
                             <div className={style.comments}>
@@ -104,9 +104,9 @@ export default function Detail() {
                             
                         </div>
                         <button className={style.write}><h1>Write a review</h1></button>
-                        <div className={style.footer}>
+
                         <Footer/>
-                        </div>
+
                         </>
                 ) : <>Book not Found...</>
             }

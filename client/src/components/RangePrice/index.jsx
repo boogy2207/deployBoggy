@@ -5,7 +5,7 @@ import styles from './range.module.css'
 
 const priceGap = 1000;
 const valueMin = 0;
-const valueMax = 100000;
+const valueMax = 10000;
 
 function RangePrice() {
 

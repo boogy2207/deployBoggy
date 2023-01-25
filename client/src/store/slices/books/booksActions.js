@@ -6,7 +6,7 @@ const urlBack = "https://deployboggy-production.up.railway.app";
 const localhost = "http://localhost:3002";
 
 export const getBooks = () => (dispatch) => {
-  axios(`${urlBack}/books`)
+  axios(`${localhost}/books`)
     .then((res) => dispatch(getAllBooks(res.data)))
     .catch((e) => console.log(e));
 };
@@ -15,7 +15,7 @@ export const getByTitle = (title) => (dispatch) => {
   if (title.length === 0) {
     dispatch(getBooks());
   } else {
-    axios(`${urlBack}/books/title?title=${title}`)
+    axios(`${localhost}/books/title?title=${title}`)
       .then((res) => dispatch(getBooksByTitle(res.data)))
       .catch((e) => console.log(e));
   }
@@ -37,4 +37,11 @@ export const postBook = (book) => async (dispatch) => {
   } catch (e) {
     console.log(e);
   }
+};
+
+export const deleteBook = (id) => () => {
+  axios
+    .delete(`${localhost}/books/${id}`)
+    .then((res) => console.log(res.data))
+    .catch((e) => console.log(e));
 };
