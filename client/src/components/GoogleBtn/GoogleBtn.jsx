@@ -15,6 +15,13 @@ const GoogleBtn = () => {
     function handleCallbackResponse (response) {
       const userObject = jwtdecode(response.credential)
         console.log(userObject)
+        /* axios.post(`${urlBack}/user/email/${userObject.email}`)
+        .then(res=>{
+            if(!res.data){
+                axios.post(`${urlBack}/user`)
+                .then(res=>console.log(res))
+            }
+        }) */
         fetch(`${urlBack}/user/email/` + userObject.email)
       .then(res => res.json())
       .then(data => {
@@ -30,7 +37,7 @@ const GoogleBtn = () => {
             headers: {
               'Content-type': 'application/json'
             },
-            credentials: 'include'
+            
           })
 
             .then((res) => res.json())
@@ -47,7 +54,7 @@ const GoogleBtn = () => {
           headers: {
             'Content-type': 'application/json'
           },
-          credentials: 'include'
+          
         })
 
           .then((res) => res.json())
