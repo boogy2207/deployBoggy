@@ -9,7 +9,7 @@ import './index.css';
 
 
 createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  
     <Auth0Provider
       domain="pfreactbooks.us.auth0.com"
       clientId="9IZgG6zW44CbTKsAamnybc6m7GmHZ9lR"
@@ -23,5 +23,5 @@ createRoot(document.getElementById('root')).render(
         </BrowserRouter>
       </Provider>
     </Auth0Provider>
-  </React.StrictMode>,
+  ,
 );
