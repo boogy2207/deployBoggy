@@ -105,19 +105,19 @@ const signIn = async (req, res) => {
     if (!confirmPassword) {
       return res.status(401).json("La contraseña es incorrecta");
     }
-    const token = await jwt.sign(
-      {
-        id: users.id,
-        email: users.email,
-        name: users.name,
-        isAdmin: users.isAdmin,
-        isUser: users.isUser,
-      },
-      process.env.JWT_SEC,
-      {
-        expiresIn: 84500,
-      }
-    );
+    // const token = await jwt.sign(
+    //   {
+    //     id: users.id,
+    //     email: users.email,
+    //     name: users.name,
+    //     isAdmin: users.isAdmin,
+    //     isUser: users.isUser,
+    //   },
+    //   process.env.JWT_SEC,
+    //   {
+    //     expiresIn: 84500,
+    //   }
+    // );
     const dataUser = {
       email: users.email,
       name: users.name,
@@ -126,7 +126,7 @@ const signIn = async (req, res) => {
       isUser: users.isUser,
       image: users.image,
     };
-    res.status(200).json({ user: dataUser, token });
+    res.status(200).json({ user: dataUser });
   } catch (error) {
     console.log(
       "===========================================ERROR===========================================",
