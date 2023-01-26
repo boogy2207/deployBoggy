@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { addToCart } from '../../store/slices/cart';
 import style from './detail.module.css'
@@ -8,20 +8,53 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
 import { orange, yellow } from '@mui/material/colors';
 import Footer from '../Footer';
+import { getBooks } from '../../store/slices/books/booksActions';
+import { addReviews, getReviews } from '../../store/slices/reviews/reviewsActions';
 
 export default function Detail() {
 
     const { id } = useParams();
+
+    const user = useSelector(state => state.user.user);
     const allBooks = useSelector(state => state.books)
+    const reviewDB = useSelector(state => state.reviews.reviews)
+
+    useEffect(() => {
+        dispatch(getBooks())
+        dispatch(getReviews())
+      }, [])
 
     const dispatch = useDispatch();
-
+    
     let bookID = allBooks.books.filter(e => id === e.id)
-
+    
+    
     const [number, setNumber] = useState(0)
     const [hoverStar, setHoverStar] = useState(undefined)
-    const [write, setWrite] = useState(false)
+    const [comment, setComment] = useState({
+        description : ''
+    })
+    
+    console.log(reviewDB)
 
+    const handleStar = () => {
+        const reviewStar = {
+            rating : number,
+            bookId : id,
+            userId : user.id
+        }
+        dispatch(addReviews(reviewStar,reviewDB))
+    }
+
+    const handleComment = () => {
+        const reviewcomment = {
+            description : comment.description,
+            bookId : id,
+            userId : user.id
+        }
+        dispatch(addReviews(reviewcomment,reviewDB))
+        window.location.replace(`/book/${id}`);
+    }
 
     const addItem = (book) => {
         dispatch(addToCart(book))
@@ -88,13 +121,13 @@ export default function Detail() {
                                     .map((_, index) =>
                                         number >= index + 1 || hoverStar >= index + 1 ? (
                                             <StarIcon sx={{ fontSize: 50, color: yellow[800] }}
-                                            onClick={() => setNumber(index + 1)}
+                                            onClick={() => (setNumber(index + 1),handleStar())}
                                             onMouseOver ={() => setHoverStar(index + 1)}
                                             onMouseLeave ={() => setHoverStar(undefined)}
                                             />
                                         ) : (
                                             <StarOutlineIcon sx={{ fontSize: 50, color: yellow[800] }}
-                                                onClick={() => setNumber(index + 1)}
+                                                onClick={() => (setNumber(index + 1),handleStar())}
                                                 onMouseOver ={() => setHoverStar(index + 1)}
                                                 onMouseLeave ={() => setHoverStar(undefined)}
                                             />
@@ -145,22 +178,19 @@ export default function Detail() {
                         <div className={style.box}>
                         <div className={style.reviews}>
                             <h1>Customer reviews</h1>
-                            <div className={style.comments}>
-                                <h1>usuario</h1>
-                                <h2>Excelente Libro!!!</h2>
+                            {
+                                reviewDB && reviewDB.map(e => (
+                                    e.description &&
+                                 <div className={style.comments}>
+                                <h1>{e.user.name}</h1>
+                                <h2>{e.description}</h2>
                             </div>
-                            <div className={style.comments}>
-                                <h1>usuario</h1>
-                                <h2>Excelente Libro!!!</h2>
-                            </div>
-                            <div className={style.comments}>
-                                <h1>usuario</h1>
-                                <h2>Excelente Libro!!!</h2>
-                            </div>
+                                    ))
+                            }
                             
-                            <textarea placeholder={handlePlaceHolder()}></textarea>
+                            <textarea placeholder={handlePlaceHolder()} onChange={e => setComment({description:e.target.value})} ></textarea>
                         </div>
-                        <button className={style.write}><h1>Write a review</h1></button>
+                        <button className={style.write} disabled={comment.description.length === 0} onClick={() => handleComment()} ><h1>Send</h1></button>
                         </div>
                         <div className={style.footer}>
                         <Footer />

@@ -4,6 +4,8 @@ const { Op } = require("sequelize");
 const { User } = require("../db");
 const userControllers = require("../controllers/userControllers");
 const { verifyToken, isAdmin, isUser } = require("../middlewares/authJwt");
+const transporter = require("../config/mail.config")
+const sendEmail = require("../config/mail.config")
 
 //post user
 
@@ -123,5 +125,15 @@ router.get("/validate/:email", async (req, res) => {
     console.log(error);
   }
 });
+
+router.get("/send", async(req, res)=> {
+  const { name, email, subject, message } = req.body
+  try {
+    transporter.sendContact(name, email, subject, message) && res.status(200).json({msg: "Email sended"})
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 
 module.exports = router;

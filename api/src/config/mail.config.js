@@ -46,6 +46,22 @@ const sendEmail = async (email, subject, html) => {
   }
 };
 
+const EMAIL = "boogyproject@gmail.com"
+
+const sendContact = async (name, email, subject, message) => {
+  await transporter.sendMail({
+    from: `"${name}" <${EMAIL}>`,
+      to: EMAIL,
+      subject: `${subject}📋`,
+      html: `
+        <h3>Message from ${email}</h3>
+        <p>${message}</p>
+        `,
+    })
+    return `everything good`
+  }
+
+
 // const getTemplate = (name, token) => {
 //   return `<head>
 //           <link rel="stylesheet" href="./style.css">
@@ -64,5 +80,6 @@ const sendEmail = async (email, subject, html) => {
 
 module.exports = {
   sendEmail,
+  sendContact,
   // getTemplate,
 };
