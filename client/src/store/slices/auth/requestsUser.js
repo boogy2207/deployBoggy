@@ -6,26 +6,24 @@ const urlBack = "https://deployboggy-production.up.railway.app";
 const localhost = "http://localhost:3002";
 
 export const login = (user) => (dispatch) => {
-  console.log(user);
   axios
-    .post(`${urlBack}/user/login`, user)
+    .post(`${localhost}/user/login`, user)
     .then((res) => {
-      console.log(res.data);
       return dispatch(postUser(res.data));
     })
     .catch((e) => {
-      console.log(e);
+      console.log(e.response.data.error);
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: e.response.data,
+        text: e.response.data.error,
       });
     });
 };
 
 export const getAllUsers = () => (dispatch) => {
   axios
-    .get(`${urlBack}/user`)
+    .get(`${localhost}/user`)
     .then((res) => dispatch(allUsers(res.data)))
     .catch((e) => console.log(e));
 };
@@ -39,35 +37,35 @@ export const register = (user) => (dispatch) => {
     image,
   };
   axios
-    .post(`${urlBack}/user`, data)
+    .post(`${localhost}/user`, data)
     .then((res) => dispatch(registerUser(res.data)))
     .catch((e) => console.log(e));
 };
 
 export const deleteUsers = (id) => () => {
   axios
-    .delete(`${urlBack}/user/${id}`)
+    .delete(`${localhost}/user/${id}`)
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };
 
 export const restoreUsers = (id) => () => {
   axios
-    .put(`${urlBack}/user/restore/${id}`)
+    .put(`${localhost}/user/restore/${id}`)
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };
 
 export const putUser = (id, changes) => () => {
   axios
-    .put(`${urlBack}/user/${id}`,changes)
+    .put(`${localhost}/user/${id}`, changes)
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };
 
 export const getUserByEmail = (email) => () => {
   axios
-  .get(`${urlBack}/user/email/${email}`)
-  .then((res)=> console.log(res.data))
-  .catch((e)=> console.log(e))
-}
+    .get(`${urlBack}/user/email/${email}`)
+    .then((res) => console.log(res.data))
+    .catch((e) => console.log(e));
+};
