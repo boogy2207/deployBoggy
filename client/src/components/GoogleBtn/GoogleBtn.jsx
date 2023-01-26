@@ -37,6 +37,8 @@ const GoogleBtn = () => {
           }
         }
 
+      }).catch(err => {
+        console.log(err)
       });
   }
 
