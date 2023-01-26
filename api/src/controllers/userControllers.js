@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken")
 
 const signUp = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, image } = req.body;
     let user = await User.findOne({
       where: {
         [Op.or]: [{ name: req.body.name, email: req.body.email }],
@@ -23,7 +23,7 @@ const signUp = async (req, res) => {
     }
 
     const code = uuidv4();
-
+    image === "register" ? image = "https://res.cloudinary.com/dkeduwift/image/upload/v1673866172/images/hwj5irqx3yjp2cmvprqu.webp" : image = image
     user = new User({ name, email, code, password:await bcryptjs.hash(password, 10) });
 
     const token = getToken({ email, code });
