@@ -67,3 +67,10 @@ export const getUserByEmail = (email) => () => {
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };
+
+export const getUserById = (id) => () => {
+  axios
+    .get(`${urlBack}/user/${id}`)
+    .then((res) => res.data)
+    .catch((e) => res.data);
+};
