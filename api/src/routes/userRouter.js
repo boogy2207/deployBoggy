@@ -92,7 +92,7 @@ router.get("/email/:email", async (req, res) => {
   const { email } = req.params;
   try {
     const findEmail = await User.findOne({ where: { email: email } });
-    if (findEmails) {
+    if (findEmail) {
       return res.status(200).json(true);
     }
     return res.status(200).json(false);
