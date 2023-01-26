@@ -92,13 +92,12 @@ router.put("/restore/:id", async (req, res) => {
 router.get('/email/:email', async (req, res) => {
   const { email } = req.params
   try {
-    const usersDb = await User.find({})
     const findEmail = await User.findOne({email: email})
 
     if (findEmail) {
-      return res.status(404).json(true)
+      return res.status(200).json(true)
     }
-
+    
     res.status(200).json(false)
   } catch (error) {
     res.status(400).json(error)

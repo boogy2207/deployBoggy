@@ -25,7 +25,8 @@ const GoogleBtn = () => {
         fetch(`${urlBack}/user/email/` + userObject.email)
       .then(res => res.json())
       .then(data => {
-        if (data === "Correo no encontrado") {
+        console.log(data)
+        if (!data) {
           fetch(`${urlBack}/user`, {
             method: 'POST',
             body: JSON.stringify({
