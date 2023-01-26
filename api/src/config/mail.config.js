@@ -24,8 +24,11 @@ const sendEmail = async (email, subject, html) => {
       from: `E-Bogy Store${mail.user}`,
       to: email,
       subject,
-      html: `<h3>Welcome from Paraíso del Libro</h3>
-         <h2>https://deployboggy-production.up.railway.app/${mail.user}</h2>;
+      html: `<h3>Welcome to Book Paradise!</h3>
+          <p>Thanks for signing up. Please click the link below to confirm your account.</p>
+          <a href="http://localhost:3000/user/confirm/${email}">Confirm your account</a>
+          <p>Thanks!</p>
+          <p>Book Paradise</p>
           `,
     });
   } catch (error) {
