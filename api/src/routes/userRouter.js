@@ -96,7 +96,7 @@ router.get("/email/:email", async (req, res) => {
     const findEmail = await User.findOne({ email: email });
     console.log("findEmail", findEmail);
     if (findEmail) {
-      return res.status(404).json(true);
+      return res.status(200).json(true);
     }
     return res.status(200).json(false);
   } catch (error) {
