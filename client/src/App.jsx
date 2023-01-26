@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
+import About from './components/About';
 const Dashboard = lazy(() => import('./components/Dashboard'));
 const Payment = lazy(() => import('./components/Payment'));
 const Home = lazy(() => import('./components/Home'));
@@ -14,6 +15,7 @@ const Register = lazy(() => import('./components/Register'));
 const Profile = lazy(() => import('./components/Profile'));
 const MiniNavBar = lazy(() => import('./components/MiniNavBar'));
 const Denied = lazy(() => import('./components/Denied'));
+const Footer = lazy(() => import("./components/Footer"));
 
 function App() {
 
@@ -44,7 +46,10 @@ function App() {
         <Route path='/login' element={<Suspense fallback={<div>Loading...</div>}><Login /></Suspense>} />
         <Route path='/register' element={<Suspense fallback={<div>Loading...</div>}><Register /></Suspense>} />
         <Route path='/denied' element={<Suspense fallback={<div>Loading...</div>}><Denied /></Suspense>} />
+        <Route path='/about' element={<Suspense fallback={<div>Loading...</div>}><About /></Suspense>} />
       </Routes>
+      <Suspense fallback={<div>Loading...</div>}><Footer /></Suspense>
+
     </>
   );
 };
