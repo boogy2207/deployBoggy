@@ -36,9 +36,14 @@ const GoogleBtn = () => {
             dispatch(login({ email: userObject.email, password: "password" }))
           }
         }
-
       }).catch(err => {
         console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Something went wrong!",
+          timer: 2500
+        })
       });
   }
 
