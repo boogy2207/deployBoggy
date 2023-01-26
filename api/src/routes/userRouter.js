@@ -31,7 +31,6 @@ router.get("/", async (req, res) => {
     const user = await User.findAll({
       paranoid: false,
     });
-    console.log("USER", user);
     res.status(200).json(user);
   } catch (error) {
     console.log(error);
