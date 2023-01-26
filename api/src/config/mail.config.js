@@ -31,7 +31,7 @@ const sendEmail = async (email, subject, html) => {
       subject,
       html: `<h3>Welcome to Book Paradise!</h3>
           <p>Thanks for signing up. Please click the link below to confirm your account.</p>
-          <a href="http://localhost:3000/user/confirm/${email}">Confirm your account</a>
+          <a href="https://deployboggy-production.up.railway.app/user/confirm/${email}">Confirm your account</a>
           <p>Thanks!</p>
           <p>Book Paradise</p>
           `,
