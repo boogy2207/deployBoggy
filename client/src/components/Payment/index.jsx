@@ -29,14 +29,14 @@ const Payment = () => {
       title: "your payment was successful",
       text: "Continue Shipping!",
     }).then(() => {
-        dispatch(clearCart());
-        navigate("/profile");
+      dispatch(clearCart());
+      // navigate("/profile");
     });
   };
 
   return (
     <center>
-      <div>
+      <div className="mt-20 border-transparent">
         <PayPalButton
           createOrder={(data, actions) => createOrder(data, actions)}
           onApprove={(data, actions) => onApprove(data, actions)}

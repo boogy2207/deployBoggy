@@ -22,7 +22,7 @@ export default function Filters() {
 
 
     return (
-        <li className='h-96 flex flex-col items-center justify-center'>
+        <li className='mt-20 h-52 flex flex-col items-center justify-center'>
 
             <select onChange={e => handleSelect(e)} className="select select-accent w-full max-w-xs mb-10" defaultValue='ASC'>
                 <option disabled>Price</option>
@@ -38,7 +38,7 @@ export default function Filters() {
 
             {
                 books.allBookys.length > 0 ? (
-                    <select onChange={e => handleSelect(e)} className="select select-accent w-full max-w-xs mb-10" defaultValue='ALL'>
+                    <select onChange={e => handleSelect(e)} className="select select-accent w-full max-w-xs" defaultValue='ALL'>
                         <option disabled>Genre</option>
                         <option value="ALL">ALL</option>
                         {

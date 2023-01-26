@@ -18,7 +18,6 @@ function useInputChange(initialStateValues = {}, initialStateErrors = {}) {
                     [e.target.name]: extraData,
                 })
             );
-            return;
         }
         setValues({
             ...values,

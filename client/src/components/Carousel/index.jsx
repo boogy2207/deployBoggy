@@ -7,7 +7,7 @@ import style from './carousel.module.css'
 export default function Carousel() {
   return (
 
-<div className={style.slider}>
+<div className={`${style.slider} rounded-xl`}>
 <ul>
     <li>
         <img src={harry}/>

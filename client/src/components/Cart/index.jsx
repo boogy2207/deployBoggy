@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeItemFromCart, deleteBookFromCart } from "../../store/slices/cart";
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
-import Payment from "../Payment/Payment"
+import Payment from "../Payment"
 
 function Cart() {
 
@@ -72,8 +72,8 @@ function Cart() {
                                             </tbody>
                                         </table>
                                         <div className="card-actions flex-col items-center mt-5">
-                                            <button className="btn btn-primary btn-wide">Buy now</button>
-                                            <button className="btn btn-primary btn-wide">Add more Books</button>
+                                            <Link to="/checkout"><button className="btn btn-primary btn-wide">Buy Now</button></Link>
+                                            <Link to="/"><button className="btn btn-primary btn-wide">Add more Books</button></Link>
                                         </div>
                                     </div>
                                 </div>
@@ -95,10 +95,8 @@ function Cart() {
                                     </tbody>
                                 </table>
                                 <div className="card-actions flex-col items-center mt-5">
-                                <Link to={"/checkout"}>
-                                    <button className="btn btn-primary btn-wide">Buy Now</button>
-                                    </Link>
-                                    <button className="btn btn-primary btn-wide">Add more Books</button>
+                                    <Link to="/checkout"><button className="btn btn-primary btn-wide">Buy Now</button></Link>
+                                    <Link to="/"><button className="btn btn-primary btn-wide">Add more Books</button></Link>
                                 </div>
                             </div>
                         </div>
