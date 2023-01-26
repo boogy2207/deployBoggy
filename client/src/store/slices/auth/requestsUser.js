@@ -7,8 +7,10 @@ const localhost = "http://localhost:3002";
 
 export const login = (user) => (dispatch) => {
   axios
-    .post(`${localhost}/user/login`, user)
+    .post(`${urlBack}/user/login`, user)
     .then((res) => {
+      console.log("data", res.data);
+      console.log("user", user);
       return dispatch(postUser(res.data));
     })
     .catch((e) => {
@@ -23,7 +25,7 @@ export const login = (user) => (dispatch) => {
 
 export const getAllUsers = () => (dispatch) => {
   axios
-    .get(`${localhost}/user`)
+    .get(`${urlBack}/user`)
     .then((res) => dispatch(allUsers(res.data)))
     .catch((e) => console.log(e));
 };
@@ -37,28 +39,28 @@ export const register = (user) => (dispatch) => {
     image,
   };
   axios
-    .post(`${localhost}/user`, data)
+    .post(`${urlBack}/user`, data)
     .then((res) => dispatch(registerUser(res.data)))
     .catch((e) => console.log(e));
 };
 
 export const deleteUsers = (id) => () => {
   axios
-    .delete(`${localhost}/user/${id}`)
+    .delete(`${urlBack}/user/${id}`)
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };
 
 export const restoreUsers = (id) => () => {
   axios
-    .put(`${localhost}/user/restore/${id}`)
+    .put(`${urlBack}/user/restore/${id}`)
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };
 
 export const putUser = (id, changes) => () => {
   axios
-    .put(`${localhost}/user/${id}`, changes)
+    .put(`${urlBack}/user/${id}`, changes)
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };
