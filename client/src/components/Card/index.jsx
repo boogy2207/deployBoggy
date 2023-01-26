@@ -17,31 +17,33 @@ function Cards() {
   const search = allBooks && allBooks.books.filter(e => Object.values(e).length === 9)
 
   const dispatch = useDispatch();
-  
+
   const addItem = (book) => {
     dispatch(addToCart(book))
   };
-  
+
   //REFACTOR
-  
+
   const [page, setPage] = useState(0);
   const [booksPaginated, setBooksPaginated] = useState([]);
-  
+
   const handlePage = (i) => {
-    setPage(i);
+    if (page === 0 && i === '-') return;
+    if (page === booksPaginated.length - 1 && i === '+') return;
+    i === '-' ? setPage(page - 1) : setPage(page + 1);
   }
 
   useEffect(() => {
     let aux = [];
     let auxI = 8;
-    if(search.length > 0){
-    for (let i = 0; i < search.length; i += auxI) {
+    if (search.length > 0) {
+      for (let i = 0; i < search.length; i += auxI) {
         aux.push(search.slice(i, i + auxI));
       }
-      }else{
-        for (let i = 0; i < booksAvalaibles.length; i += auxI) {
-          aux.push(booksAvalaibles.slice(i, i + auxI));
-        }
+    } else {
+      for (let i = 0; i < booksAvalaibles.length; i += auxI) {
+        aux.push(booksAvalaibles.slice(i, i + auxI));
+      }
     }
     setBooksPaginated(aux);
   }, [allBooks])
@@ -54,14 +56,11 @@ function Cards() {
 
   return (
     <>
-      {/* <div className="btn-group flex justify-center items-center mb-10">
-        {
-          booksPaginated.length > 0 && booksPaginated.map((_, i) => (
-            <button key={i} className={`btn btn-primary`} onClick={() => { handlePage(i) }}>{i + 1}</button>
-          ))
-        }
-      </div> */}
-
+      <div className="btn-group flex justify-center items-center my-5">
+        <button className="btn btn-secondary" onClick={() => handlePage('-')}>«</button>
+        <button className="btn">Page {page + 1}</button>
+        <button className="btn btn-secondary" onClick={() => handlePage('+')}>»</button>
+      </div>
       <div className='mt-15 homeCards'>
         {
           booksPaginated.length > 0 && booksPaginated[page]?.map((book, i) => (
@@ -92,6 +91,11 @@ function Cards() {
             </div>
           ))
         }
+      </div>
+      <div className="btn-group flex justify-center items-center my-5">
+        <button className="btn btn-secondary" onClick={() => handlePage('-')}>«</button>
+        <button className="btn">Page {page + 1}</button>
+        <button className="btn btn-secondary" onClick={() => handlePage('+')}>»</button>
       </div>
     </>
   )

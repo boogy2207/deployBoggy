@@ -29,7 +29,7 @@ router.get("/confirm/:token", [], userControllers.confirm);
 router.get("/", async (req, res) => {
   try {
     const user = await User.findAll({
-      paranoid: false
+      paranoid: false,
     });
     console.log("USER", user);
     res.status(200).json(user);
@@ -54,7 +54,7 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  console.log(id)
+  console.log(id);
   const { name, email, password } = req.body;
   try {
     const user = await User.update(
@@ -82,27 +82,24 @@ router.delete("/:id", async (req, res) => {
 router.put("/restore/:id", async (req, res) => {
   const { id } = req.params;
   try {
-     const user = await User.restore({ where: { id } });
-     res.status(200).json(user);
+    const user = await User.restore({ where: { id } });
+    res.status(200).json(user);
   } catch (error) {
-     console.log(error);
+    console.log(error);
   }
 });
 
-router.get('/email/:email', async (req, res) => {
-  const { email } = req.params
+router.get("/email/:email", async (req, res) => {
+  const { email } = req.params;
   try {
-    const usersDb = await User.find({})
-    const findEmail = await User.findOne({email: email})
-
+    const findEmail = await User.findOne({ email: email });
     if (findEmail) {
-      return res.status(404).json(true)
+      return res.status(404).json(true);
     }
-
-    res.status(200).json(false)
+    res.status(200).json(false);
   } catch (error) {
-    res.status(400).json(error)
+    res.status(400).json(error);
   }
-})
+});
 
 module.exports = router;

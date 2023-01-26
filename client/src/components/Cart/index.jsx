@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeItemFromCart, deleteBookFromCart } from "../../store/slices/cart";
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
-import Payment from "../Payment"
 
 function Cart() {
 
@@ -41,7 +40,7 @@ function Cart() {
                                             <figure className="bg-transparent border-transparent hover:bg-transparent hover:border-transparent"><img src={book.imagelink} alt={book.title} /></figure>
 
                                             <div className="card-body">
-                                                <button className="btn btn-primary ">{book.title}</button>
+                                                <button className="btn btn-primary">{book.title.length > 30 ? `${book.title.substring(0, 30)}...` : book.title}</button>
                                                 <h2 className="card-title">$ {book.price} c/u</h2>
                                                 <p>Author: {book.authors}</p>
 

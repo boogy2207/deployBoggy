@@ -24,18 +24,6 @@ export default function Home() {
                 </div>
             </div> */}
 
-
-            {/* <h1 className="mb-5 text-5xl font-bold mt-10 text-center">Discover our Collections</h1>
-            <div className="justify-center mt-10 mx-36 carrApear">
-                <Carousel />
-            </div>
-            <div>
-                <RangePrice />
-            </div>
-            <div className="mx-36">
-                <Cards />
-            </div> */}
-
             <div className="card flex justify-center lg:card-side bg-base-100 mb-20">
                 <div className="flex justify-center lg:card-side lg:card lg:w-full lg:max-w-sm">
                     <div className="card w-full max-w-sm shadow-2xl bg-base-100">
