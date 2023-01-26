@@ -6,19 +6,15 @@ const urlBack = "https://deployboggy-production.up.railway.app";
 const localhost = "http://localhost:3002";
 
 export const login = (user) => (dispatch) => {
-  console.log(user);
   axios
     .post(`${urlBack}/user/login`, user)
-    .then((res) => {
-      console.log(res.data);
-      return dispatch(postUser(res.data));
-    })
+    .then((res) => dispatch(postUser(res.data)))
     .catch((e) => {
-      console.log(e);
+      console.log(e.response.data.error);
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: e.response.data,
+        text: e.response.data.error,
       });
     });
 };
@@ -31,11 +27,12 @@ export const getAllUsers = () => (dispatch) => {
 };
 
 export const register = (user) => (dispatch) => {
-  const { name, email, password } = user;
+  const { name, email, password, image = null } = user;
   const data = {
     name,
     email,
     password,
+    image,
   };
   axios
     .post(`${urlBack}/user`, data)
@@ -59,7 +56,14 @@ export const restoreUsers = (id) => () => {
 
 export const putUser = (id, changes) => () => {
   axios
-    .put(`${urlBack}/user/${id}`,changes)
+    .put(`${urlBack}/user/${id}`, changes)
+    .then((res) => console.log(res.data))
+    .catch((e) => console.log(e));
+};
+
+export const getUserByEmail = (email) => () => {
+  axios
+    .get(`${urlBack}/user/email/${email}`)
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };

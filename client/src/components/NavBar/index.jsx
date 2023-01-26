@@ -17,7 +17,7 @@ function NavBar() {
 
 
   return (
-    <div className="navbar bg-gray-700">
+    <div className="navbar bg-gray-800">
       <div className="flex-1">
         <Link to='/' className="btn btn-ghost normal-case text-xl text-primary-content">Book Paradise 📖</Link>
       </div>

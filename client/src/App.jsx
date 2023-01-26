@@ -27,8 +27,8 @@ function App() {
       {
         (location.pathname === '/login' || location.pathname === '/register') ? <></> :
           <>
-            <Suspense fallback={<div>Loading...</div>}><MiniNavBar /></Suspense>
             <Suspense fallback={<div>Loading...</div>}><NavBar /></Suspense>
+            <Suspense fallback={<div>Loading...</div>}><MiniNavBar /></Suspense>
           </>
       }
       <Routes>
