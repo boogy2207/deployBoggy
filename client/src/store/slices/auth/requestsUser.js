@@ -6,13 +6,10 @@ const urlBack = "https://deployboggy-production.up.railway.app";
 const localhost = "http://localhost:3002";
 
 export const login = (user) => (dispatch) => {
+  console.log("user", user);
   axios
     .post(`${urlBack}/user/login`, user)
-    .then((res) => {
-      console.log("data", res.data);
-      console.log("user", user);
-      return dispatch(postUser(res.data));
-    })
+    .then((res) => dispatch(postUser(res.data)))
     .catch((e) => {
       console.log(e.response.data.error);
       Swal.fire({
