@@ -100,7 +100,7 @@ router.get("/email/:email", async (req, res) => {
   }
 });
 
-router.put("/validate/:email", async (req, res) => {
+router.get("/validate/:email", async (req, res) => {
   const { email } = req.params;
   try {
     const findEmail = await User.findOne({ email: email });
