@@ -37,11 +37,11 @@ const signUp = async (req, res) => {
           code,
           password: await bcryptjs.hash(password, 10),
         }));
-    const token = getToken({ email, code });
+    // const token = getToken({ email, code });
 
-    const template = getTemplate(name, token);
+    // const template = getTemplate(name, token);
 
-    await sendEmail(email, "Confirma Tu Cuenta", template);
+    await sendEmail(email, "Confirma Tu Cuenta");
     await user.save();
 
     res.json({
@@ -61,7 +61,7 @@ const confirm = async (req, res) => {
   try {
     const { token } = req.params;
     const data = await getTokenData(token);
-
+    console.log(data);
     if (data === null) {
       return res.json({ success: false, msg: "Error al obtener data " });
     }
@@ -96,7 +96,6 @@ const confirm = async (req, res) => {
 const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
     const users = await User.findOne({ where: { email: email } });
     if (!users) return res.status(402).json("Correo no encontrado");
     if (users.isValid === false) {
