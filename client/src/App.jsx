@@ -13,6 +13,7 @@ const Register = lazy(() => import("./components/Register"));
 const Profile = lazy(() => import("./components/Profile"));
 const MiniNavBar = lazy(() => import("./components/MiniNavBar"));
 const Denied = lazy(() => import("./components/Denied"));
+const Footer = lazy(() => import("./components/Footer"));
 const About = lazy(() => import("./components/About"));
 
 function App() {
@@ -126,6 +127,9 @@ function App() {
                }
             />
          </Routes>
+         <Suspense fallback={<div>Loading...</div>}>
+            <Footer />
+         </Suspense>
       </>
    );
 }
