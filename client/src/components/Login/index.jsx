@@ -1,12 +1,8 @@
-import { Box, Typography, TextField, Button } from '@mui/material';
-import LoginIcon from '@mui/icons-material/Login';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import useInputChange from '../../hooks/useInputChange';
 import { useDispatch } from 'react-redux';
 import { login } from '../../store/slices/auth/requestsUser';
 import GoogleBtn from '../GoogleBtn/GoogleBtn';
-// import LogoutIcon from '@mui/icons-material/Logout';
 
 const initialStateValues = {
   email: '',
@@ -16,95 +12,47 @@ const initialStateValues = {
 function Login() {
 
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { values, handleChange } = useInputChange(initialStateValues);
-
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(login(values));
   }
 
   return (
-    <div style={{ display: 'grid', placeItems: 'center', height: '100vh' }}>
-      <Box
-        position={'relative'}
-        overflow='hidden'
-        width={350}
-        height={400}
-        padding={3}
-        borderRadius={'.9rem'}
-        sx={{
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: '-40%',
-            left: '-40%',
-            width: 350,
-            height: 400,
-            background: 'linear-gradient(0deg, transparent, #2158AE, #2158AE)',
-            transformOrigin: 'bottom right',
-            animation: 'animate 6s linear infinite',
-          },
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            top: '-40%',
-            left: '-40%',
-            width: 350,
-            height: 400,
-            background: 'linear-gradient(0deg, transparent, #2158AE, #2158AE)',
-            transformOrigin: 'bottom right',
-            animation: 'animate 6s linear infinite',
-            animationDelay: '-3s'
-          }
-
-        }}
-      >
-
-        <form onSubmit={onSubmit} >
-          <Box sx={{
-            position: 'absolute',
-            backgroundColor: 'background.default',
-            inset: '.2rem',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 10,
-            borderRadius: '.9rem',
-          }} >
-            <Typography color='text.primary' variant='h3' padding={3} textAlign='center'>Iniciar Sesion</Typography>
-
-            <TextField
-              label='Email '
-              required
-              margin='normal'
-              type='email'
-              variant='outlined'
-              placeholder='Email'
-              name='email'
-              value={values.email}
-              onChange={handleChange} />
-            <TextField
-
-              label='Password'
-              required
-              margin='normal'
-              type='password'
-              variant='outlined'
-              placeholder='Password'
-              name='password'
-              value={values.password}
-              onChange={handleChange} />
-
-            <Button sx={{ marginTop: 3, borderRadius: 4, minWidth: '10rem' }} variant='contained' color='warning' onClick={onSubmit} endIcon={<LoginIcon />} >Login</Button>
-            <Button sx={{ marginTop: 3, borderRadius: 4, minWidth: '10rem' }} onClick={() => { navigate('/register') }} endIcon={<HowToRegIcon />} >Sin Up</Button>
-          </Box>
-        </form>
-      </Box>
-      <GoogleBtn></GoogleBtn>
-    </div >
+    <form onSubmit={onSubmit}>
+      <div className="hero min-h-screen bg-base-200">
+        <div className="hero-content flex-col lg:flex-row-reverse">
+          <div className="text-center lg:text-left">
+            <h1 className="text-5xl font-bold">Login now!</h1>
+            <p className="py-6">Fill out your data</p>
+          </div>
+          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div className="card-body">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
+                <input onChange={handleChange} value={values.email} name="email" type="text" placeholder="email" className="input input-bordered" />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <input onChange={handleChange} value={values.password} name="password" type="password" placeholder="password" className="input input-bordered" />
+              </div>
+              <div className="form-control mt-6">
+                <button className="btn btn-primary">Login</button>
+              </div>
+              <GoogleBtn />
+              <label className="label">
+                <Link to="/register" className="label-text-alt link link-hover">You don't have an account? Register Now!</Link>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   );
 };
 
