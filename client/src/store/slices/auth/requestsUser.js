@@ -31,7 +31,7 @@ export const getAllUsers = () => (dispatch) => {
 };
 
 export const register = (user) => (dispatch) => {
-  const { name, email, password, image } = user;
+  const { name, email, password, image = null } = user;
   const data = {
     name,
     email,

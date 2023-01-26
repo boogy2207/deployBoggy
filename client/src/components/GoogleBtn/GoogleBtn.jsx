@@ -18,10 +18,10 @@ const GoogleBtn = () => {
         console.log(data)
         if (!data.data) {
           dispatch(register({ email: userObject.email, password: "password", name: userObject.name, image: userObject.picture }))
-            .then(() => dispatch(login({ email: userObject.email, password: "password" })))
-        } else {
-          dispatch(login({ email: userObject.email, password: "password" }))
         }
+        setTimeout(() => {
+          dispatch(login({ email: userObject.email, password: "password" }))
+        }, 4000)
       });
   }
 
