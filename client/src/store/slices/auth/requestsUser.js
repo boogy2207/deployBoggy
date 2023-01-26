@@ -6,7 +6,6 @@ const urlBack = "https://deployboggy-production.up.railway.app";
 const localhost = "http://localhost:3002";
 
 export const login = (user) => (dispatch) => {
-  console.log("user", user);
   axios
     .post(`${urlBack}/user/login`, user)
     .then((res) => dispatch(postUser(res.data)))
