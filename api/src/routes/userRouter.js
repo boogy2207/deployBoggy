@@ -92,13 +92,32 @@ router.get("/email/:email", async (req, res) => {
   const { email } = req.params;
   try {
     const findEmail = await User.findOne({ email: email });
-    console.log(findEmail);
     if (findEmail.length > 0) {
       return res.status(200).json(true);
     }
     return res.status(200).json(false);
   } catch (error) {
     res.status(400).json(error);
+  }
+});
+
+router.put("/validate/:email", async (req, res) => {
+  const { email } = req.params;
+  try {
+    const findEmail = await User.findOne({ email: email });
+    if (findEmail) {
+      const user = await User.update(
+        {
+          isValid: true,
+        },
+        {
+          where: { email: email },
+        }
+      );
+      res.status(200).json(user);
+    }
+  } catch (error) {
+    console.log(error);
   }
 });
 
