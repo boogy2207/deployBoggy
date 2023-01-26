@@ -99,25 +99,14 @@ const signIn = async (req, res) => {
     console.log(email, password);
     const users = await User.findOne({ where: { email: email } });
     if (!users) return res.status(402).json("Correo no encontrado");
-    // if (users.isValid === false)
-    //   return res.status(404).json("La cuenta no esta verificada");
+    if (users.isValid === false) {
+      return res.status(400).json("La cuenta no esta verificada");
+    }
     const confirmPassword = await bcryptjs.compare(password, users.password);
     if (!confirmPassword) {
       return res.status(401).json("La contraseña es incorrecta");
     }
-    // const token = await jwt.sign(
-    //   {
-    //     id: users.id,
-    //     email: users.email,
-    //     name: users.name,
-    //     isAdmin: users.isAdmin,
-    //     isUser: users.isUser,
-    //   },
-    //   process.env.JWT_SEC,
-    //   {
-    //     expiresIn: 84500,
-    //   }
-    // );
+
     const dataUser = {
       email: users.email,
       name: users.name,
@@ -128,10 +117,7 @@ const signIn = async (req, res) => {
     };
     res.status(200).json({ user: dataUser });
   } catch (error) {
-    console.log(
-      "===========================================ERROR===========================================",
-      error
-    );
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };

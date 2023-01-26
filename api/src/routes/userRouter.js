@@ -114,8 +114,11 @@ router.put("/validate/:email", async (req, res) => {
           where: { email: email },
         }
       );
-      res.status(200).json(user);
+      return res
+        .status(200)
+        .json({ user: user.email, message: "Email validated" });
     }
+    return res.status(200).json({ message: "Email not found" });
   } catch (error) {
     console.log(error);
   }

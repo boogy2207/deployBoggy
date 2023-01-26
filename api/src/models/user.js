@@ -37,6 +37,7 @@ module.exports = (sequelize) => {
 
       isValid: {
         type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       /* roles: {
             type: DataTypes.ARRAY(DataTypes.STRING)
