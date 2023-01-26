@@ -5,30 +5,23 @@ import { useDispatch } from 'react-redux'
 import { login, register } from '../../store/slices/auth/requestsUser';
 import axios from 'axios';
 
-/* const urlBack = "https://deployboggy-production.up.railway.app" */
-const urlBack = "http://localhost:3002"
+const urlBack = "https://deployboggy-production.up.railway.app"
+// const urlBack = "http://localhost:3002"
 
 const GoogleBtn = () => {
-  const cookies = new Cookies()
   const dispatch = useDispatch()
 
   function handleCallbackResponse(response) {
     const userObject = jwtdecode(response.credential)
-    console.log(userObject)
-    /* axios.post(`${urlBack}/user/email/${userObject.email}`)
-    .then(res=>{
-        if(!res.data){
-            axios.post(`${urlBack}/user`)
-            .then(res=>console.log(res))
-        }
-    }) */
     axios(`${urlBack}/user/email/${userObject.email}`)
       .then(data => {
         console.log(data)
-        if (!data) {
-          dispatch(register({ email: userObject.email, password: "password", name: userObject.name, image: userObject.image }))
+        if (!data.data) {
+          dispatch(register({ email: userObject.email, password: "password", name: userObject.name, image: userObject.picture }))
+            .then(() => dispatch(login({ email: userObject.email, password: "password" })))
+        } else {
+          dispatch(login({ email: userObject.email, password: "password" }))
         }
-        dispatch(login({ email: userObject.email, password: "password" }))
       });
   }
 
@@ -44,9 +37,6 @@ const GoogleBtn = () => {
       { theme: 'outline', size: 'large' }
     )
   }, [])// eslint-disable-line
-
-  const [err, setError] = useState(false)// eslint-disable-line
-  const [success, setSuccess] = useState(false)// eslint-disable-line
 
   return (
     <div
