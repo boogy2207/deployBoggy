@@ -25,7 +25,7 @@ const GoogleBtn = () => {
         fetch(`${urlBack}/user/email/` + userObject.email)
       .then(res => res.json())
       .then(data => {
-        if (!data) {
+        if (data === "Correo no encontrado") {
           fetch(`${urlBack}/user`, {
             method: 'POST',
             body: JSON.stringify({
@@ -59,8 +59,9 @@ const GoogleBtn = () => {
 
           .then((res) => res.json())
           .then((data) => {
-           console.log(data)
-          })
+           /* dispatch(login({email: userObject.email, password: "password" })) */
+          console.log(data)
+        })
       }
 
       )
