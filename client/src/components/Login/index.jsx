@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import useInputChange from '../../hooks/useInputChange';
 import { useDispatch } from 'react-redux';
 import { login } from '../../store/slices/auth/requestsUser';
+import GoogleBtn from '../GoogleBtn/GoogleBtn';
 // import LogoutIcon from '@mui/icons-material/Logout';
 
 const initialStateValues = {
@@ -102,6 +103,7 @@ function Login() {
           </Box>
         </form>
       </Box>
+      <GoogleBtn></GoogleBtn>
     </div >
   );
 };
