@@ -5,6 +5,11 @@ const mail = {
   pass: "pktfmgybillvpfcn",
 };
 
+const mail1 = {
+  user: "boogyproject@gmail.com",
+  pass: "bbpogpmezrceepzp",
+};
+
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
@@ -13,15 +18,15 @@ let transporter = nodemailer.createTransport({
   },
   secure: true, // true for 465, false for other ports
   auth: {
-    user: mail.user, // generated ethereal user
-    pass: mail.pass, // generated ethereal password
+    user: mail1.user, // generated ethereal user
+    pass: mail1.pass, // generated ethereal password
   },
 });
 
 const sendEmail = async (email, subject, html) => {
   try {
     await transporter.sendMail({
-      from: `E-Bogy Store${mail.user}`,
+      from: `E-Bogy Store${mail1.user}`,
       to: email,
       subject,
       html: `<h3>Welcome to Book Paradise!</h3>
