@@ -100,8 +100,8 @@ const signIn = async (req, res) => {
     console.log(email, password);
     const users = await User.findOne({ where: { email: email } });
     if (!users) return res.status(402).json("Correo no encontrado");
-    if (users.isValid === false)
-      return res.status(404).json("La cuenta no esta verificada");
+    // if (users.isValid === false)
+    //   return res.status(404).json("La cuenta no esta verificada");
     const confirmPassword = await bcryptjs.compare(password, users.password);
     if (!confirmPassword) {
       return res.status(401).json("La contraseña es incorrecta");
