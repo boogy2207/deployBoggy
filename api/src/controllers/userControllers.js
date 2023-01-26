@@ -23,9 +23,9 @@ const signUp = async (req, res) => {
     }
 
     const code = uuidv4();
-    image === "register" ? image = "https://res.cloudinary.com/dkeduwift/image/upload/v1673866172/images/hwj5irqx3yjp2cmvprqu.webp" : image = image
-    user = new User({ name, email, code, password:await bcryptjs.hash(password, 10) });
-
+    image?
+    user = new User({ name, email, code, password:await bcryptjs.hash(password, 10), image }):
+    user = new User({ name, email, code, password:await bcryptjs.hash(password, 10) })
     const token = getToken({ email, code });
 
     const template = getTemplate(name, token);
