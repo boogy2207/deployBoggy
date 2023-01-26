@@ -1,10 +1,9 @@
 const { User } = require("../db");
 const { v4: uuidv4 } = require("uuid");
 const { Op } = require("sequelize");
-const { getToken, getTokenData } = require("../config/jwt.config");
-const { getTemplate, sendEmail } = require("../config/mail.config");
+const { getTokenData } = require("../config/jwt.config");
+const { sendEmail } = require("../config/mail.config");
 const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 
 const signUp = async (req, res) => {
   try {
@@ -37,9 +36,6 @@ const signUp = async (req, res) => {
           code,
           password: await bcryptjs.hash(password, 10),
         }));
-    // const token = getToken({ email, code });
-
-    // const template = getTemplate(name, token);
 
     await sendEmail(email, "Confirma Tu Cuenta");
     await user.save();
@@ -61,7 +57,6 @@ const confirm = async (req, res) => {
   try {
     const { token } = req.params;
     const data = await getTokenData(token);
-    console.log(data);
     if (data === null) {
       return res.json({ success: false, msg: "Error al obtener data " });
     }
@@ -113,6 +108,7 @@ const signIn = async (req, res) => {
       isAdmin: users.isAdmin,
       isUser: users.isUser,
       image: users.image,
+      isVald: users.isValid,
     };
     res.status(200).json({ user: dataUser });
   } catch (error) {

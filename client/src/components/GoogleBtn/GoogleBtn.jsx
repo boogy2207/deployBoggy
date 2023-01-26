@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import jwtdecode from 'jwt-decode'
 import Cookies from 'universal-cookie'
 import { useDispatch } from 'react-redux'
-import { login, register } from '../../store/slices/auth/requestsUser';
+import { login, register, getUserById } from '../../store/slices/auth/requestsUser';
 import axios from 'axios';
 
 const urlBack = "https://deployboggy-production.up.railway.app"
@@ -15,13 +15,28 @@ const GoogleBtn = () => {
     const userObject = jwtdecode(response.credential)
     axios(`${urlBack}/user/email/${userObject.email}`)
       .then(data => {
-        console.log(data)
         if (!data.data) {
           dispatch(register({ email: userObject.email, password: "password", name: userObject.name, image: userObject.picture }))
+          Swal.fire({
+            icon: 'success',
+            title: 'User registered successfully',
+            text: "Please, confirm your email to continue",
+            timer: 2500
+          })
+        } else {
+          const isValid = getUserById(data.data.id);
+          if (!isValid) {
+            Swal.fire({
+              icon: 'error',
+              title: 'User not Validated',
+              text: "Please, check your email to confirm your account",
+              timer: 2500
+            })
+          } else {
+            dispatch(login({ email: userObject.email, password: "password" }))
+          }
         }
-        setTimeout(() => {
-          dispatch(login({ email: userObject.email, password: "password" }))
-        }, 4000)
+
       });
   }
 

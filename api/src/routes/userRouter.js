@@ -43,7 +43,8 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findByPk(id);
-    res.status(200).json(user);
+    if (!user) return res.status(200).json(user);
+    return res.status(200).json(user.isValid);
   } catch (error) {
     console.log(error);
   }
@@ -90,8 +91,8 @@ router.put("/restore/:id", async (req, res) => {
 router.get("/email/:email", async (req, res) => {
   const { email } = req.params;
   try {
-    const findEmail = await User.findOne({ email: email });
-    if (findEmail.length > 0) {
+    const findEmail = await User.findOne({ where: { email: email } });
+    if (findEmails) {
       return res.status(200).json(true);
     }
     return res.status(200).json(false);
