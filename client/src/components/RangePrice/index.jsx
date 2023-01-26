@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux'
 import { rangePrice } from "../../store/slices/books";
 import styles from './range.module.css'
 
-const priceGap = 1000;
+const priceGap = 100;
 const valueMin = 0;
-const valueMax = 100000;
+const valueMax = 1000;
 
 function RangePrice() {
 

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeItemFromCart, deleteBookFromCart } from "../../store/slices/cart";
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
+import Payment from "../Payment/Payment"
 
 function Cart() {
 
@@ -71,7 +72,7 @@ function Cart() {
                                             </tbody>
                                         </table>
                                         <div className="card-actions flex-col items-center mt-5">
-                                            <button className="btn btn-primary btn-wide">Buy Now</button>
+                                            <button className="btn btn-primary btn-wide">Buy now</button>
                                             <button className="btn btn-primary btn-wide">Add more Books</button>
                                         </div>
                                     </div>
@@ -94,7 +95,9 @@ function Cart() {
                                     </tbody>
                                 </table>
                                 <div className="card-actions flex-col items-center mt-5">
+                                <Link to={"/checkout"}>
                                     <button className="btn btn-primary btn-wide">Buy Now</button>
+                                    </Link>
                                     <button className="btn btn-primary btn-wide">Add more Books</button>
                                 </div>
                             </div>

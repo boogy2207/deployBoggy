@@ -28,7 +28,9 @@ router.get("/confirm/:token", [], userControllers.confirm);
 
 router.get("/", async (req, res) => {
   try {
-    const user = await User.findAll();
+    const user = await User.findAll({
+      paranoid: false
+    });
     console.log("USER", user);
     res.status(200).json(user);
   } catch (error) {
@@ -38,7 +40,7 @@ router.get("/", async (req, res) => {
 
 //get user by id
 
-router.get("/:id", isAdmin, async (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findByPk(id);
@@ -52,6 +54,7 @@ router.get("/:id", isAdmin, async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
+  console.log(id)
   const { name, email, password } = req.body;
   try {
     const user = await User.update(
@@ -65,7 +68,7 @@ router.put("/:id", async (req, res) => {
 });
 
 //delete user by id
-router.delete("/:id", [verifyToken, isAdmin], async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.destroy({ where: { id } });
@@ -74,5 +77,32 @@ router.delete("/:id", [verifyToken, isAdmin], async (req, res) => {
     console.log(error);
   }
 });
+
+//restore user by id
+router.put("/restore/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+     const user = await User.restore({ where: { id } });
+     res.status(200).json(user);
+  } catch (error) {
+     console.log(error);
+  }
+});
+
+router.get('/email/:email', async (req, res) => {
+  const { email } = req.params
+  try {
+    const usersDb = await User.find({})
+    const findEmail = await User.findOne({email: email})
+
+    if (findEmail) {
+      return res.status(404).json(true)
+    }
+
+    res.status(200).json(false)
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
 
 module.exports = router;

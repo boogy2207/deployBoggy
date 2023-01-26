@@ -8,17 +8,46 @@ const { v4: uuidv4 } = require("uuid");
 //ruta para obtener los libros
 router.get("/", async (req, res) => {
   try {
-    const booksDatabase = await Book.findAll();
-    const url = await axios.get(
-      "https://www.googleapis.com/books/v1/volumes?q={libros}&maxResults=40&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk"
-    );
-    const urlData = await url.data.items;
-    const filterUrlData = await urlData.map((e) => booksModel(e));
-    const allBooks = booksDatabase.concat(filterUrlData);
-    res.status(200).json([...new Set(allBooks)]);
+    
+    const booksDb = await Book.findAll({
+      paranoid: false
+    });
+    
+    if(booksDb.length){
+      res.status(200).json(booksDb);
+    }
+    else{
+      const url = await axios.get(
+         "https://www.googleapis.com/books/v1/volumes?q=%7Blibros%7D&maxResults=40&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk"
+      );
+      const urlData = await url.data.items;
+      const filterUrlData = await urlData.map((e) => booksModel(e));
+      filterUrlData.forEach(async (e) => {
+ 
+         await Book.findOrCreate({
+            where: {
+               id: e.id,
+               title: e.title,
+               authors: e.authors,
+               description: e.description,
+               category: e.category,
+               pagecount: e.pagecount,
+               imagelink: e.imagelink,
+               language: e.language,
+               price: e.price,
+            },
+         });
+      });
+ 
+      const booksDatabase = await Book.findAll({
+       paranoid: false
+     });
+ 
+      res.status(200).json(booksDatabase);
+    }
   } catch (error) {
-    console.log(error);
-    res.json({ msg: "something is wrong" });
+     console.log(error);
+     res.json({ msg: "something is wrong" });
   }
 });
 
@@ -26,22 +55,14 @@ router.get("/", async (req, res) => {
 router.get("/title", async (req, res) => {
   try {
     const { title } = req.query;
-    console.log(title);
-    const booky = await Book.findAll({
-      where: {
-        title: {
-          [Op.iLike]: `%${title}%`,
-        },
-      },
-    });
-
+    
     const searchBook = await axios.get(
       `https://www.googleapis.com/books/v1/volumes?q=${title}&maxResults=40&key=AIzaSyC3J4dErWqR63bwO9rBzpMBWrnSIKTmjbk`
-    );
+      );
 
     const dataToSend = await searchBook.data.items.map((e) => booksModel(e));
 
-    res.status(200).send(dataToSend.concat(booky));
+    res.status(200).send(dataToSend);
   } catch (error) {
     res.status(404).send({ msg: "The title does not exist" });
     console.log(error);
@@ -54,6 +75,17 @@ router.get("/:id", async (req, res) => {
   try {
     const info = await Book.findByPk(id);
     res.json({ info });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//delete book by id
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const book = await Book.destroy({ where: { id } });
+    res.status(200).json(book);
   } catch (error) {
     console.log(error);
   }
@@ -82,7 +114,7 @@ router.post("/", async (req, res) => {
       pagecount,
       imagelink,
       language,
-      price,
+      price
     });
     res.status(200).json(book);
   } catch (error) {
@@ -117,16 +149,14 @@ const booksModel = (e) => {
     pagecount:
       e.volumeInfo.pageCount !== undefined
         ? e.volumeInfo.pageCount
-        : "no pagecount",
+        : 1,
     imagelink: e.volumeInfo.imageLinks.thumbnail,
     language:
       e.volumeInfo.language !== undefined
         ? e.volumeInfo.language
         : "no language",
     price:
-      e.saleInfo.listPrice !== undefined
-        ? Math.round(e.saleInfo.listPrice.amount)
-        : "Free Book",
+    Math.floor(Math.random()*1000),
   };
   return book;
 };

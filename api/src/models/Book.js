@@ -31,10 +31,10 @@ module.exports = (sequelize) => {
             
          }, 
           pagecount: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
          },
          imagelink: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             defaultValue:
                "https://images.unsplash.com/photo-1508169351866-777fc0047ac5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
          }, 
@@ -42,9 +42,16 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
          },   
             price: {
-            type: DataTypes.STRING
+            type: DataTypes.INTEGER
          },   
       },
+      {
+         sequelize,
+         paranoid: true,
+         timestamps: true,
+         // If you want to give a custom name to the deletedAt column
+         deletedAt: "destroyTime",
+      }
        
    );
 };
