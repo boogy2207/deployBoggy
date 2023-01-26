@@ -22,7 +22,7 @@ router.use((req, res, next) => {
 });
 
 ////////
-router.get("/confirm/:token", [], userControllers.confirm);
+// router.get("/confirm/:token", [], userControllers.confirm);
 
 //get user
 
@@ -53,7 +53,6 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   const { name, email, password } = req.body;
   try {
     const user = await User.update(

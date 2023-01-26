@@ -46,23 +46,23 @@ const sendEmail = async (email, subject, html) => {
   }
 };
 
-const getTemplate = (name, token) => {
-  return `<head>
-          <link rel="stylesheet" href="./style.css">
-      </head>
+// const getTemplate = (name, token) => {
+//   return `<head>
+//           <link rel="stylesheet" href="./style.css">
+//       </head>
       
-      <div id="email___content">
-          <img src="" alt="">
-          <h2>Hola ${name}</h2>
-          <p>Para confirmar tu cuenta, ingresa al siguiente enlace</p>
-          <a
-              href="http://localhost:3000/user/confirm/${token}"
-              target="_blank"
-          >Confirmar Cuenta</a>
-      </div>`;
-};
+//       <div id="email___content">
+//           <img src="" alt="">
+//           <h2>Hola ${name}</h2>
+//           <p>Para confirmar tu cuenta, ingresa al siguiente enlace</p>
+//           <a
+//               href="http://localhost:3000/user/confirm/${token}"
+//               target="_blank"
+//           >Confirmar Cuenta</a>
+//       </div>`;
+// };
 
 module.exports = {
   sendEmail,
-  getTemplate,
+  // getTemplate,
 };
