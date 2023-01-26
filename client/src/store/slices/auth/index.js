@@ -5,7 +5,7 @@ const USER = "user";
 
 let initialState = {
   user: null,
-  users: null
+  users: null,
 };
 
 const localStorageUser = localStorage.getItem(USER);
@@ -38,7 +38,7 @@ export const authSlice = createSlice({
         window.location.replace("/");
       });
     },
-    registerUser: (state, action) => {
+    registerUser: (_, action) => {
       const { success, msg } = action.payload;
       Swal.fire({
         icon: success ? "success" : "error",
@@ -46,16 +46,15 @@ export const authSlice = createSlice({
         text: msg,
         showConfirmButton: false,
         timer: 1500,
-      }).then(() => {
-        window.location.replace("/login");
       });
     },
     allUsers: (state, action) => {
       state.users = action.payload;
-    }
+    },
   },
 });
 
-export const { postUser, logoutUser, registerUser, allUsers } = authSlice.actions;
+export const { postUser, logoutUser, registerUser, allUsers } =
+  authSlice.actions;
 
 export default authSlice.reducer;
