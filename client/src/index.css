@@ -7,12 +7,20 @@
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-  background-color: #805e4a88;
+  /* background-color: #805e4a88; */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+.maxHeight {
+  max-height: 100vh;
+}
+
+.maxWidth {
+  max-width: 100vw;
 }
 
 .homeCards {
@@ -21,7 +29,6 @@
   grid-gap: 1rem;
   margin: 1rem;
 }
-
 
 .cartDiv {
   width: 60vw;
@@ -38,7 +45,7 @@
   margin-left: 5vw;
 }
 
-.cartTotalDivNone{
+.cartTotalDivNone {
   display: none;
 }
 
@@ -46,7 +53,7 @@
   .cartTotalDiv {
     display: none;
   }
-  .cartTotalDivNone{
+  .cartTotalDivNone {
     display: flex;
     width: 70vw;
   }
@@ -59,5 +66,16 @@
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+
+.carrApear {
+  display: flex;
+}
+
+@media screen and (max-width: 780px) {
+  .carrApear {
+    display: none;
   }
 }

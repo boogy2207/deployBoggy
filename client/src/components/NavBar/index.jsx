@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../../store/slices/auth";
 // import BtnTheme from "../BtnTheme";
-import SearchBar from "../SearchBar/SearchBar.jsx"
 
 
 function NavBar() {
@@ -18,12 +17,11 @@ function NavBar() {
 
 
   return (
-    <div className="navbar bg-[#004D43]">
+    <div className="navbar bg-gray-700">
       <div className="flex-1">
-        <Link to='/' className="btn btn-ghost normal-case text-xl text-[#dfa100]">El Paraíso del Libro</Link>
+        <Link to='/' className="btn btn-ghost normal-case text-xl text-primary-content">Book Paradise 📖</Link>
       </div>
       <div className="flex justify-center gap-3" >
-        <SearchBar />
         {/* <BtnTheme /> */}
       </div>
       <div className="flex-none">
@@ -60,10 +58,10 @@ function NavBar() {
                           Cargar Libro
                           <span className="badge">New</span>
                         </Link>
-                        <Link className="justify-between text-cyan-500" to={'/dashboard'}>
+                        <Link className="justify-between" to={'/dashboard'}>
                           Dashboard
                         </Link>
-                        
+
                       </li>
                     )
                   }

@@ -33,7 +33,7 @@ function SearchBar() {
           value={values.search}
           onChange={handleChange}
           type="text"
-          placeholder="Search"
+          placeholder="Search Here!"
           className="input input-bordered"
         />
       </div>
