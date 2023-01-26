@@ -59,7 +59,6 @@ const signUp = async (req, res) => {
 
 const confirm = async (req, res) => {
   try {
-    console.log("a");
     const { token } = req.params;
     const data = await getTokenData(token);
 
@@ -129,6 +128,10 @@ const signIn = async (req, res) => {
     };
     res.status(200).json({ user: dataUser, token });
   } catch (error) {
+    console.log(
+      "===========================================ERROR===========================================",
+      error
+    );
     res.status(400).json({ error: error.message });
   }
 };
