@@ -29,11 +29,12 @@ export const getAllUsers = () => (dispatch) => {
 };
 
 export const register = (user) => (dispatch) => {
-  const { name, email, password } = user;
+  const { name, email, password, image } = user;
   const data = {
     name,
     email,
     password,
+    image,
   };
   axios
     .post(`${localhost}/user`, data)
@@ -58,6 +59,13 @@ export const restoreUsers = (id) => () => {
 export const putUser = (id, changes) => () => {
   axios
     .put(`${localhost}/user/${id}`, changes)
+    .then((res) => console.log(res.data))
+    .catch((e) => console.log(e));
+};
+
+export const getUserByEmail = (email) => () => {
+  axios
+    .get(`${urlBack}/user/email/${email}`)
     .then((res) => console.log(res.data))
     .catch((e) => console.log(e));
 };

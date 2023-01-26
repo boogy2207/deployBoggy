@@ -48,6 +48,11 @@ module.exports = (sequelize) => {
             type: DataTypes.BOOLEAN,
             defaultValue: true
           },
+          image: {
+            type: DataTypes.STRING,
+            defaultValue: 
+            "https://res.cloudinary.com/dkeduwift/image/upload/v1673866172/images/hwj5irqx3yjp2cmvprqu.webp"
+          }
 
          //enter throw google platform
 
